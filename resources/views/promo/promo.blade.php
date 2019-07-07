@@ -6,7 +6,7 @@
 <script src="{{ asset('frontend/vendors/datatables-buttons/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('frontend/vendors/datatables-buttons/buttons.print.min.js') }}"></script>
 <script src="{{ asset('frontend/vendors/jszip/jszip.min.js') }}"></script>
-<script src="{{ asset('frontend/vendors/datatables-buttons/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('frontend/vendors/datatables-buttons/buttons.html5.min.js') }}"></script> 
 @endsection
 
 
@@ -29,6 +29,7 @@
                         <th>Gambar Promo</th>
                         <th>Status</th>
                         <th>Position</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead> 
                 <tbody>

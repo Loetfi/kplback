@@ -28,6 +28,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
+// berita
+Route::get('/berita','BeritaController@index')->name('berita');
+
+
 // promo
 // Route::get('/promo', function () {
     
@@ -40,9 +44,13 @@ Route::post('/promo/edit/{id}','PromoController@prosesedit');
 Route::post('/promo/add','PromoController@prosesadd');
 // end promo
 
-Route::get('/toko', function () {
-    return view('toko/toko');
-})->name('toko');
+
+Route::get('/toko','TokoController@index')->name('toko');
+Route::get('/toko/detail/{id}','TokoController@edit');
+Route::get('/toko/approval/{id_order}/{id}','TokoController@prosesedit');
+// Route::get('/toko', function () {
+//     return view('toko/toko');
+// })->name('toko');
 
 Route::get('/pesawat', function () {
     return view('travel/pesawat');

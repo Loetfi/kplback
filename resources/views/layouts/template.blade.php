@@ -13,7 +13,7 @@
         <!-- App styles -->
         <link rel="stylesheet" href="{{ asset('frontend/css/app.min.css') }}">
 
-        <title>@yield('title')</title>
+        <title> Backend - @yield('title')</title>
     </head>
 
     <body data-ma-theme="green">

@@ -9,14 +9,11 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-class PromoController extends Controller
-{ 
-
+class BeritaController extends Controller
+{
 	public function index()
-	{
-
-		 
-		$res = (object) RestCurl::exec('GET','http://localhost/projekan/kpl4pps/public/promo/list');
+	{ 
+        $res = (object) RestCurl::exec('GET',env('LINK_API').'/backend/beritalist');
 
 		if ($res->status == 200) {
 			$d = $res->data->data;
@@ -25,13 +22,13 @@ class PromoController extends Controller
 		}
 
 		$data = array(
-			'title' => 'Promo', 
-			'desc'	=> 'Manajemen Promo, Mulai dari Tambah, Edit, Hapus ',
+			'title' => 'Berita', 
+			'desc'	=> 'Manajemen Berita, Mulai dari Tambah, Edit, Hapus ',
 			// data
 			'data'	=> $d
 		);
 
-		return view('promo/promo')->with($data);
+		return view('berita/berita')->with($data);
 	}
 
 
@@ -132,7 +129,7 @@ class PromoController extends Controller
 	public function add(){
 
 		$list =  @$r->data->data->data;
-		return view("promo/add")->with('list',$list);
+		return view("berita/add")->with('list',$list);
 	}
 
 	public function prosesadd(Request $request){
