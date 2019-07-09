@@ -14,7 +14,7 @@ class PesawatController extends Controller
 	public function list(Request $request)
 	{
 		// echo env('URL_API').'data/order_pesawat';
-		$r = (object) RestCurl::exec('GET',env('URL_API').'data/order_pesawat?start=0&length=1000',$request->input());
+		$r = (object) RestCurl::exec('GET',env('LINK_API').'data/order_pesawat?start=0&length=1000',$request->input());
 		$list =  @$r->data->data->data;
 
 		// print($list)

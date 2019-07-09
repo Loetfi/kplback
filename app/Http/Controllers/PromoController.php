@@ -16,7 +16,7 @@ class PromoController extends Controller
 	{
 
 		 
-		$res = (object) RestCurl::exec('GET','http://localhost/projekan/kpl4pps/public/promo/list');
+		$res = (object) RestCurl::exec('GET', env('LINK_API').'promo/list');
 
 		if ($res->status == 200) {
 			$d = $res->data->data;
@@ -41,7 +41,7 @@ class PromoController extends Controller
 		
 		$id = $id ? $id : 0;
 
-		$res = (object) RestCurl::exec('GET','http://localhost/projekan/kpl4pps/public/promo/detail?id_promo='.$id);
+		$res = (object) RestCurl::exec('GET',env('LINK_API').'promo/detail?id_promo='.$id);
 
 		if ($res->status == 200) {
 			$d = $res->data->data;
@@ -93,7 +93,7 @@ class PromoController extends Controller
 			'id'		=> $id
 		);
 
-		$res = (object) RestCurl::exec('POST','http://localhost/projekan/kpl4pps/public/promo/update',$update);
+		$res = (object) RestCurl::exec('POST',env('LINK_API').'/promo/update',$update);
 
 		if ($res->status == 200) {
 			$data = $res->data;
@@ -114,7 +114,7 @@ class PromoController extends Controller
 			$parse = array(
 				'id_promo'	=> $id ? $id : 10000
 			);
-			$res = (object) RestCurl::exec('POST','http://kpl.awanesia.com/public/promo/delete',$parse);
+			$res = (object) RestCurl::exec('POST',env('LINK_API').'promo/delete',$parse);
 
 			if ($res->status == 200) {
 				$data = $res->data;
@@ -154,8 +154,7 @@ class PromoController extends Controller
 			'link' 	=> $url,
 			'nama'	=> $request->keterangan
 		);
-		$res = (object) RestCurl::exec('POST','http://kpl.awanesia.com/public/promo/add',$insert);
-		dd($res);
+		$res = (object) RestCurl::exec('POST',env('LINK_API').'promo/add',$insert);
 		if ($res->status == 200) {
 			$data = $res->data;
 			// echo $data->message;
