@@ -13,9 +13,7 @@ class PromoController extends Controller
 { 
 
 	public function index()
-	{
-
-		 
+	{ 
 		$res = (object) RestCurl::exec('GET', env('LINK_API').'promo/list');
 
 		if ($res->status == 200) {
@@ -37,8 +35,7 @@ class PromoController extends Controller
 
 	// edit
 	public function edit($id = null)
-	{
-		
+	{ 
 		$id = $id ? $id : 0;
 
 		$res = (object) RestCurl::exec('GET',env('LINK_API').'promo/detail?id_promo='.$id);
@@ -46,7 +43,8 @@ class PromoController extends Controller
 		if ($res->status == 200) {
 			$d = $res->data->data;
 		} else {
-			return redirect('promo');
+			$data = array('error' => 'ID Promo tidak ditemukan');
+			return redirect('promo')->with($data);
 		}
 
 		$data = array(
@@ -99,11 +97,12 @@ class PromoController extends Controller
 			$data = $res->data;
 			// echo $data->message;
 		} else {
-			// $data = $res->data;
-			return redirect('promo');
+			$data = array('error' => 'Terjadi kesalahan saat melakukan edit');
+			return redirect('promo')->with($data);
 		}
 
-		return redirect('promo');
+		$data = array('success' => 'Berhasil melakukan perubahan');
+		return redirect('promo')->with($data);
 	}
 
 
@@ -119,11 +118,13 @@ class PromoController extends Controller
 			if ($res->status == 200) {
 				$data = $res->data;
 			} else {
-				return redirect('promo');
+				$data = array('error' => 'Terjadi kesalahan saat melakukan hapus');
+			return redirect('promo')->with($data);
 			}
 		}
 
-		return redirect('promo');
+		$data = array('success' => 'Berhasil melakukan penghapusan');
+		return redirect('promo')->with($data);
 
 	}
 
