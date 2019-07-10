@@ -1,17 +1,8 @@
 @extends('layouts.template')
-
-@section('js')
-<!-- Vendors: Data tables -->
-<script src="{{ asset('frontend/vendors/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('frontend/vendors/datatables-buttons/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('frontend/vendors/datatables-buttons/buttons.print.min.js') }}"></script>
-<script src="{{ asset('frontend/vendors/jszip/jszip.min.js') }}"></script>
-<script src="{{ asset('frontend/vendors/datatables-buttons/buttons.html5.min.js') }}"></script>
-@endsection
-
+ 
 
 @section('content')
-
+<div class="container-fluid">
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">{{ $title }} </h4>
@@ -65,5 +56,5 @@
         </div>
     </div>
 </div>
-
+</div>
 @endsection

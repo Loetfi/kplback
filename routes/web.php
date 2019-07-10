@@ -28,6 +28,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
+Route::get('/chart', function () {
+    return view('chart');
+});
+
 // berita
 Route::get('/berita','BeritaController@index')->name('berita');
 
