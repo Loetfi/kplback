@@ -20,6 +20,8 @@ Route::get('/', function () {
 Route::post('login','AuthController@proses')->name('login');
 Route::get('logout','AuthController@logout');
 
+Route::get('pengurus/dashboard/','DashboardController@index');
+
 // Route::get('/', function () {
 //     return view('auth/login');
 // });
