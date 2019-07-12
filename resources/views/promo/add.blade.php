@@ -1,9 +1,15 @@
 @extends('layouts.template')
 @section('content')
 
-<div class="card">
-    <div class="card-body">
-        <h4 class="card-title">Basic example</h4>
+
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <div class="card shadow">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Tambah Promo</h6>
+            </div>
+        <div class="card-body">
 
         @if(count($errors) > 0)
         <div class="alert alert-danger">

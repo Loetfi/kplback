@@ -27,9 +27,10 @@
     
 <div class="card shadow">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Cashflow</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{$title}}</h6>
             </div>
         <div class="card-body">
+        <p><a href="{{ url('promo/add') }}" class="btn btn-primary">Tambah</a></p>
                 <table id="dataTable" class="table table-bordered">
                         <thead class="thead-default">
                             <tr>
