@@ -1,4 +1,5 @@
 @extends('layouts.template')
+@section('title',$title)
 
 @section('js') 
 

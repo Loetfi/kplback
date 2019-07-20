@@ -1,8 +1,6 @@
 @extends('layouts.template')
+@section('title',$title)
 @section('content')
-
-
-
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <div class="card shadow">

@@ -13,11 +13,7 @@ class TravelController extends Controller
 { 
 	public function index()
 	{
-		return view("travel/order");
+		$data = array('title' => 'Ticketing');
+		return view("travel/order")->with($data);
 	}
 }
-
-
-// @foreach ($users as $user)
-//     <p>This is user {{ $user->id }}</p>
-// @endforeach

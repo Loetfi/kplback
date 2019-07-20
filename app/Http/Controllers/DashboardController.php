@@ -11,8 +11,11 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 { 
-	public function index(Request $request)
-	{
+	function web(){
+		$data = array('title' => 'Dashboard');
+		return view('dashboard')->with($data);
+	}
+	public function index(Request $request){
 		// $value = session('user') ? session('user') : [];
 
 		// if (sizeof($value)>0) {

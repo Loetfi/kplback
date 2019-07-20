@@ -15,19 +15,14 @@ class PesawatController extends Controller
 	{
 		// echo env('URL_API').'data/order_pesawat';
 		$r = (object) RestCurl::exec('GET',env('LINK_API').'data/order_pesawat?start=0&length=1000',$request->input());
-		$list =  @$r->data->data->data;
+		$list =  @$r->data->data;
 
-		// print($list)
-		// dd($list);
-		// $list = DB::table('student')->get();
-		return view("travel/pesawat")->with('list',$list);
+		$data = array(
+			'list'	=> $list,
+			'title'	=> 'Pesawat',
+		);
 
-		// $r = (object) RestCurl::exec('GET',env('URL_API').'data/order_pesawat',$request->input());
-		// return response()->json(@$r->data->data);
+		// dd($data);
+		return view("travel/pesawat")->with($data); 
 	}
-}
-
-
-// @foreach ($users as $user)
-//     <p>This is user {{ $user->id }}</p>
-// @endforeach
+} 

@@ -1,24 +1,38 @@
  @extends('layouts.template')
-
-
- @section('js')
- <!-- Vendors: Data tables -->
- <script src="{{ asset('frontend/vendors/datatables/jquery.dataTables.min.js') }}"></script>
- <script src="{{ asset('frontend/vendors/datatables-buttons/dataTables.buttons.min.js') }}"></script>
- <script src="{{ asset('frontend/vendors/datatables-buttons/buttons.print.min.js') }}"></script>
- <script src="{{ asset('frontend/vendors/jszip/jszip.min.js') }}"></script>
- <script src="{{ asset('frontend/vendors/datatables-buttons/buttons.html5.min.js') }}"></script>
- @endsection  
+ @section('title',$title)
  
-
+ 
+ @section('js') 
+ 
+ <!-- Page level plugins -->
+ <script src="{{ url('vendor/datatables/jquery.dataTables.min.js') }}"></script>
+ <script src="{{ url('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+ 
+ <!-- Page level custom scripts -->
+<script src="{{ url('js/demo/datatables-demo.js')}}"></script>
+ @endsection
+ 
+ @section('css')
+ <!-- Custom styles for this page -->
+ <link href="{{ url('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+ @endsection
+ 
+ 
  @section('content')
- <div class="card">
-    <div class="card-body">
-        <h4 class="card-title">Data Order Pesawat</h4>
-        <!-- <h6 class="card-subtitle">DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool, based upon the foundations of progressive enhancement, and will add advanced interaction controls to any HTML table.</h6> -->
-
-        <div class="table-responsive">
-            <table id="data-table" class="table table-bordered">
+ 
+ 
+ <!-- Begin Page Content -->
+ <div class="container-fluid">
+    
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">{{ $title }}</h1>
+    
+    <div class="card shadow">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">{{$title}}</h6>
+        </div>
+        <div class="card-body">
+            <table id="dataTable" class="table table-bordered">
                 <thead class="thead-default">
                     <tr>
                         <th>Nama Layanan</th>
@@ -33,7 +47,7 @@
                         <th>Nama Penumpang</th>
                         <th>Aksi</th>
                     </tr>
-                </thead>                 
+                </thead> 
                 <tbody>
                     @foreach ($list as $lists)
                     <tr>
@@ -49,12 +63,17 @@
                         <td>{{ $lists->nama_penumpang }}</td>
                         <td><a href="" class="btn btn-primary btn-sm">Detail</a></td>
                     </tr>
-
-                    @endforeach
                     
-
-                </tbody></table></div>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
             
         </div>
-        @endsection
+    </div>
+    
+    
+</div>
+@endsection
+
+
+

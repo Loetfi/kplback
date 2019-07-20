@@ -21,14 +21,15 @@ Route::post('login','AuthController@proses')->name('login');
 Route::get('logout','AuthController@logout');
 
 Route::get('pengurus/dashboard/','DashboardController@index');
+Route::get('dashboard','DashboardController@web');
 
 // Route::get('/', function () {
 //     return view('auth/login');
 // });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// });
 
 Route::get('/chart', function () {
     return view('chart');
