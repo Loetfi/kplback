@@ -56,8 +56,10 @@
                     <a class="collapse-item @if (Request::segment(1) === 'toko' ) navigation__active @endif" href="{{ route('toko') }}"><i class="fas fa-fw fa-store"></i> Toko</a>
                     <a class="collapse-item @if (Request::segment(1) === 'travel' ) navigation__active @endif" href="{{ route('travel') }}"><i class="fas fa-fw fa-ticket-alt"></i> Tiketing</a>
                     <a class="collapse-item @if (Request::segment(1) === 'topup' ) navigation__active @endif" href="{{ route('topup') }}"><i class="fas fa-fw fa-mobile"></i> Top Up</a>
-                    <a class="collapse-item @if (Request::segment(1) === 'simpanan' ) navigation__active @endif" href="{{ route('topup') }}"><i class="fas fa-fw fa-money-check-alt"></i> Simpanan</a>
-                    <a class="collapse-item @if (Request::segment(1) === 'pinjaman' ) navigation__active @endif" href="{{ route('topup') }}"><i class="fas fa-fw fa-balance-scale"></i> Pinjaman</a>
+                    <a class="collapse-item @if (Request::segment(1) === 'simpanan' ) navigation__active @endif" href="{{ route('simpanan') }}"><i class="fas fa-fw fa-money-check-alt"></i> Simpanan</a>
+                    <a class="collapse-item @if (Request::segment(1) === 'pinjaman' ) navigation__active @endif" href="{{ route('pinjaman') }}"><i class="fas fa-fw fa-balance-scale"></i> Pinjaman</a>
+                    <a class="collapse-item @if (Request::segment(1) === 'serbausaha' ) navigation__active @endif" href="{{ route('serbausaha') }}"><i class="fas fa-fw fa-landmark"></i> Serba Usaha</a>
+                    <a class="collapse-item @if (Request::segment(1) === 'gedungtekno' ) navigation__active @endif" href="{{ route('gedungtekno') }}"><i class="fa fa-fw fa-hotel"></i> Gedung Forum Tekno</a>
                     
                 </div>
             </div>
@@ -71,8 +73,8 @@
             </a>
             <div id="collapseNews" class="collapse" aria-labelledby="headingUtilities" data-parent="#collapseNews">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item @if (Request::segment(1) === 'toko' ) navigation__active @endif" href="{{ route('toko') }}"><i class="fas fa-fw fa-plus"></i> Tambah Berita</a>
-                    <a class="collapse-item @if (Request::segment(1) === 'promo' ) navigation__active @endif " href="{{ route('promo') }}"><i class="fas fa-fw fa-list"></i> List Berita</a>
+                    <a class="collapse-item @if (Request::segment(1) === 'berita/add' ) navigation__active @endif" href="{{ route('berita/add') }}"><i class="fas fa-fw fa-plus"></i> Tambah Berita</a>
+                    <a class="collapse-item @if (Request::segment(1) === 'berita' ) navigation__active @endif " href="{{ route('berita') }}"><i class="fas fa-fw fa-list"></i> List Berita</a>
                 </div>
             </div>
         </li>

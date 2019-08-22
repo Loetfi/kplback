@@ -50,7 +50,7 @@
                             <td>{{ $d->nama }}</td>
                             <td>Rp. {{ number_format($d->total) }}</td>
                             <td>
-                                @if ($d->approval == 0) <a href="" class="btn btn-default btn-sm">Belum diApprove</a> 
+                                @if ($d->approval == '') <a href="" class="btn btn-default btn-sm">Belum diApprove</a> 
                                 @elseif ($d->approval == 1) <a href="" class="btn btn-primary btn-sm">Sudah di Approve </a>
                                 @else
                                 <a href="" class="btn btn-danger btn-sm">Tidak di Approve</a>

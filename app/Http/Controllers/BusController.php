@@ -9,28 +9,31 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-class PesawatController extends Controller
+class BusController extends Controller
 { 
-	public $title = 'Tiketing Pesawat';
+    public $title = 'Tiketing Bus';
+    public $layanan = 'bus';
 	
 	public function __construct()
 	{
-		$this->title;
+        $this->title;
+        $this->layanan;
 	}
 
 	public function list(Request $request)
 	{
 		// echo env('URL_API').'data/order_pesawat';
-		$r = (object) RestCurl::exec('GET',env('LINK_API').'data/order_pesawat?start=0&length=1000',$request->input());
-		$list =  @$r->data->data;
+		// die;
+		$r = (object) RestCurl::exec('GET',env('LINK_API').'data/orderlist?start=0&length=1000&id_kategori=4');
+        $list =  @$r->data->data;
 
 		$data = array(
 			'list'	=> $list,
-			'title'	=> 'Pesawat',
+			'title'	=> $this->title,
 		);
 
 		// dd($data);
-		return view("travel/pesawat")->with($data); 
+		return view("travel/".$this->layanan)->with($data); 
 	}
 
 	// edit
@@ -38,19 +41,19 @@ class PesawatController extends Controller
 	{ 
 		$id = $id ? $id : 0;
 		
-		$res = (object) RestCurl::exec('GET',env('LINK_API').'/backend/toko/detailData?id_layanan=1&id_kategori=1&id_order='.$id);
-		// dd($res);
+		$res = (object) RestCurl::exec('GET',env('LINK_API').'/backend/toko/detailData?id_layanan=1&id_kategori=4&id_order='.$id);
+
 		if ($res->status == 200) {
 			
 			if($res->data->data->header != NULL) {
 				$d = $res->data->data;
 			} else {
-				$data = array('error' => 'ID Toko tidak ditemukan');
-				return redirect('travel/pesawat')->with($data);
+				$data = array('error' => 'ID Bus tidak ditemukan');
+				return redirect('travel/'.$this->layanan)->with($data);
 			}
 
 		} else{
-			return redirect('travel/pesawat');
+			return redirect('travel/'.$this->layanan);
 		}
 		
 		$data = array(
@@ -60,7 +63,7 @@ class PesawatController extends Controller
 			'data'	=> $d
 		);
 		
-		return view('travel/pesawat_edit')->with($data);
+		return view('travel/'.$this->layanan.'_edit')->with($data);
 	}
 
 	// proses edit 
@@ -72,14 +75,14 @@ class PesawatController extends Controller
 		$data = array(
 			'id_order' => $id_order,
 			'status' => $id,
-			'kategori' => 'Pesawat'
+			'kategori' => 'Bus'
 		);
-		$res = (object) RestCurl::exec('POST',env('LINK_API').'/backend/toko/approval',$data);
+        $res = (object) RestCurl::exec('POST',env('LINK_API').'/backend/toko/approval',$data);
 		
 		if ($res->status == 200) {
-			return redirect('travel/pesawat/detail/'.$id_order)->with(['success' => 'Update Status Approval Berhasil']);
+			return redirect('travel/'.$this->layanan.'/detail/'.$id_order)->with(['success' => 'Update Status Approval Berhasil']);
 		} else {
-			return redirect('travel/pesawat/');
+			return redirect('travel/'.$this->layanan);
 		}
 		
 

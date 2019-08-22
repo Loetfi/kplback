@@ -11,6 +11,15 @@ use Carbon\Carbon;
 
 class BeritaController extends Controller
 {
+	public $title = 'Berita';
+    public $layanan = 'simpanan';
+	
+	public function __construct()
+	{
+        $this->title;
+        $this->layanan;
+	}
+
 	public function index()
 	{ 
         $res = (object) RestCurl::exec('GET',env('LINK_API').'/backend/beritalist');
@@ -128,8 +137,10 @@ class BeritaController extends Controller
 	// add
 	public function add(){
 
-		$list =  @$r->data->data->data;
-		return view("berita/add")->with('list',$list);
+		$list = array(
+			'title' => $this->title
+		);
+		return view("berita/add")->with($list);
 	}
 
 	public function prosesadd(Request $request){

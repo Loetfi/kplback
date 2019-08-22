@@ -25,18 +25,18 @@
         </div>
         <div class="card-body">
             <p>Aksi</p>
-                
-                @if ($data->header->approval == 1)
-                    <a class="btn btn-primary btn-sm" href="#">Approve</a>
-                @elseif ($data->header->approval == '0')
-                    <a class="btn btn-danger btn-sm" href="#">Reject</a>
-                    <br><br>
-                @else 
-                    <a href="{{ url('toko/approval/'.$data->header->id_order.'/1')}}" class="btn btn-primary btn-sm">Approve</a>
-                    <a href="{{ url('toko/approval/'.$data->header->id_order.'/0')}}" class="btn btn-danger btn-sm">Reject</a>
-                @endif
-                
-                
+            
+            @if ($data->header->approval == 1)
+            <a class="btn btn-primary btn-sm" href="#">Approve</a>
+            @elseif ($data->header->approval == '0')
+            <a class="btn btn-danger btn-sm" href="#">Reject</a>
+            <br><br>
+            @else 
+            <a href="{{ url('gedungtekno/approval/'.$data->header->id_order.'/1/'.$id_kat.'/'.$nama)}}" class="btn btn-primary btn-sm">Approve</a>
+            <a href="{{ url('gedungtekno/approval/'.$data->header->id_order.'/0/'.$id_kat.'/'.$nama)}}" class="btn btn-danger btn-sm">Reject</a>
+            @endif
+            
+            
             
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
@@ -48,7 +48,12 @@
                     <tr>
                         <td>Tanggal Order</td>
                         <td>:</td>
-                        <td>{{ $data->header->tanggal_order }}</td>
+                        <td>{{ date('d F Y H:i:s' , strtotime($data->header->tanggal_order)) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Nama Pemesan</td>
+                        <td>:</td>
+                        <td>{{ $data->header->nama }}</td>
                     </tr>
                     <tr>
                         <td>Nama Layanan</td>
@@ -72,25 +77,35 @@
                         </td>
                     </tr>
                 </table>
-                {{-- {{ print_r($data)}} --}}
                 
                 @foreach ($data->detail as $d)
                 <table class="table table-bordered table-hover">
                     <tr>
-                        <td>Nama Barang</td>
+                        <td>Nama Item</td>
                         <td>:</td>
-                        <td>{{ $d->nama_barang}}</td>
+                        <td>{{ $d->nama_layanan}} {{ $d->nama_kategori}}</td>
                     </tr>
                     <tr>
-                        <td>Qty</td>
+                        <td>Paket</td>
                         <td>:</td>
-                        <td>{{ $d->qty}}</td>
+                        <td>{{ $d->pilihan_paket }} </td>
                     </tr>
                     <tr>
-                        <td>Jumlah</td>
+                        <td>No HP</td>
                         <td>:</td>
-                        <td>Rp. {{ number_format($d->harga_barang)}}</td>
+                        <td>{{ $d->no_hp }} </td>
                     </tr>
+                    <tr>
+                        <td>Tanggal Booking</td>
+                        <td>:</td>
+                        <td>{{ $d->tanggal_book }} </td>
+                    </tr>
+                    <tr>
+                        <td>Keterangan</td>
+                        <td>:</td>
+                        <td>{{ $d->keterangan }} </td>
+                    </tr>
+                    
                     
                 </table> 
                 @endforeach

@@ -9,7 +9,7 @@
  <script src="{{ url('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
  
  <!-- Page level custom scripts -->
- <script src="{{ url('js/demo/datatables-demo.js')}}"></script>
+<script src="{{ url('js/demo/datatables-demo.js')}}"></script>
  @endsection
  
  @section('css')
@@ -43,10 +43,8 @@
                         <th>Dari</th>
                         <th>Ke</th>
                         <th>Penumpang</th>
-                        <th>Waktu Keberangkatan</th>
-                        <th>Kursi Kelas</th>
-                        <th>Nama Penumpang</th>
-                        <th>status approval</th>
+                        <th>Waktu Berangkat</th>
+                        <th>Approval</th>
                         <th>Aksi</th>
                     </tr>
                 </thead> 
@@ -57,22 +55,20 @@
                         <td>{{ $lists->nama_layanan }}</td>
                         <td>{{ $lists->tanggal_order }}</td>
                         <td>{{ $lists->nama }}</td>
-                        <td>Pesawat</td>
+                        <td>{{ $lists->nama_kategori }}</td>
                         <td>{{ $lists->dari }}</td>
                         <td>{{ $lists->ke }}</td>
-                        <td>{{ $lists->penumpang }}</td>
-                        <td>{{ $lists->waktu_keberangkatan }}</td>
-                        <td>{{ $lists->kursi_kelas }}</td>
-                        <td>{{ $lists->nama_penumpang }}</td>
+                        <td>{{ 'Dewasa : ' . $lists->penumpang_dewasa.' | Balita : '.$lists->penumpang_balita }}</td>
+                        <td>{{ $lists->waktu_kedatangan }}</td>
                         <td>
-                                @if ($lists->approval == '') <a href="" class="btn btn-default btn-sm">Belum diApprove</a> 
-                                @elseif ($lists->approval == 1) <a href="" class="btn btn-primary btn-sm">Sudah di Approve </a>
-                                @else
-                                <a href="" class="btn btn-danger btn-sm">Tidak di Approve</a>
-                                @endif
-                                
-                            </td>
-                    <td><a href="{{ url('travel/pesawat/detail/'.$lists->id_order) }}" class="btn btn-primary btn-sm">Detail</a></td>
+                            @if ($lists->approval == '') <a href="" class="btn btn-default btn-sm">Belum diApprove</a> 
+                            @elseif ($lists->approval == 1) <a href="" class="btn btn-primary btn-sm">Sudah di Approve </a>
+                            @else
+                            <a href="" class="btn btn-danger btn-sm">Tidak di Approve</a>
+                            @endif
+                            
+                        </td>
+                        <td><a href="{{ url('travel/kereta/detail/'.$lists->id_order) }}" class="btn btn-primary btn-sm">Detail</a></td>
                     </tr>
                     
                     @endforeach

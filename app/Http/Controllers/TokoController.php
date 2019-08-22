@@ -48,8 +48,15 @@ class TokoController extends Controller
 		$res = (object) RestCurl::exec('GET',env('LINK_API').'/backend/toko/detailData?id_layanan=2&id_kategori=7&id_order='.$id);
 		
 		if ($res->status == 200) {
-			$d = $res->data->data;
-		} else {
+			
+			if($res->data->data->header != NULL) {
+				$d = $res->data->data;
+			} else {
+				$data = array('error' => 'ID Toko tidak ditemukan');
+				return redirect('toko')->with($data);
+			}
+
+		} else{
 			return redirect('toko');
 		}
 		
@@ -71,7 +78,8 @@ class TokoController extends Controller
 		
 		$data = array(
 			'id_order' => $id_order,
-			'status' => $id
+			'status' => $id,
+			'kategori' => 'Toko'
 		);
 
 		$res = (object) RestCurl::exec('POST',env('LINK_API').'/backend/toko/approval',$data);

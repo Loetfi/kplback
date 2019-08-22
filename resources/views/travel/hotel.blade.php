@@ -9,7 +9,7 @@
  <script src="{{ url('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
  
  <!-- Page level custom scripts -->
- <script src="{{ url('js/demo/datatables-demo.js')}}"></script>
+<script src="{{ url('js/demo/datatables-demo.js')}}"></script>
  @endsection
  
  @section('css')
@@ -35,18 +35,17 @@
             <table id="dataTable" class="table table-bordered">
                 <thead class="thead-default">
                     <tr>
-                        <th> ID Order </th>
+                            <th> ID Order </th>
                         <th>Nama Layanan</th>
                         <th>Tanggal</th>
                         <th>Nama Anggota</th>
                         <th>Nama Menu</th>
-                        <th>Dari</th>
-                        <th>Ke</th>
-                        <th>Penumpang</th>
-                        <th>Waktu Keberangkatan</th>
-                        <th>Kursi Kelas</th>
-                        <th>Nama Penumpang</th>
-                        <th>status approval</th>
+                        <th>Nama Hotel</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                        <th>Tamu</th>
+                        <th>Jumlah Kamar</th>
+                        <th>Approval</th>
                         <th>Aksi</th>
                     </tr>
                 </thead> 
@@ -57,22 +56,21 @@
                         <td>{{ $lists->nama_layanan }}</td>
                         <td>{{ $lists->tanggal_order }}</td>
                         <td>{{ $lists->nama }}</td>
-                        <td>Pesawat</td>
-                        <td>{{ $lists->dari }}</td>
-                        <td>{{ $lists->ke }}</td>
-                        <td>{{ $lists->penumpang }}</td>
-                        <td>{{ $lists->waktu_keberangkatan }}</td>
-                        <td>{{ $lists->kursi_kelas }}</td>
-                        <td>{{ $lists->nama_penumpang }}</td>
+                        <td>{{ $lists->nama_kategori }}</td>
+                        <td>{{ $lists->nama_hotel }}</td>
+                        <td>{{ date('d F Y',strtotime($lists->check_in)) }}</td>
+                        <td>{{ date('d F Y',strtotime($lists->check_out)) }}</td>
+                        <td>{{ $lists->tamu }}</td>
+                        <td>{{ $lists->rooms }}</td>
                         <td>
-                                @if ($lists->approval == '') <a href="" class="btn btn-default btn-sm">Belum diApprove</a> 
-                                @elseif ($lists->approval == 1) <a href="" class="btn btn-primary btn-sm">Sudah di Approve </a>
-                                @else
-                                <a href="" class="btn btn-danger btn-sm">Tidak di Approve</a>
-                                @endif
-                                
-                            </td>
-                    <td><a href="{{ url('travel/pesawat/detail/'.$lists->id_order) }}" class="btn btn-primary btn-sm">Detail</a></td>
+                            @if ($lists->approval == '') <a href="" class="btn btn-default btn-sm">Belum diApprove</a> 
+                            @elseif ($lists->approval == 1) <a href="" class="btn btn-primary btn-sm">Sudah di Approve </a>
+                            @else
+                            <a href="" class="btn btn-danger btn-sm">Tidak di Approve</a>
+                            @endif
+                            
+                        </td>
+                        <td><a href="{{ url('travel/hotel/detail/'.$lists->id_order) }}" class="btn btn-primary btn-sm">Detail</a></td>
                     </tr>
                     
                     @endforeach
