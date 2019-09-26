@@ -36,7 +36,7 @@ class DashboardController extends Controller
 
 		// jika pengurus lebih banyak lagi informasinya
 		if($data['anggota']->pengurus == 1){
-			echo " Pengurus ";
+			// echo " Pengurus ";
 		}
 
 
