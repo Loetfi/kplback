@@ -33,6 +33,13 @@ class DashboardController extends Controller
 		left join kantor d on a.kantorid = d.id
 		where anggotaid = '".$request->anggotaid."'"));
 
+
+		// jika pengurus lebih banyak lagi informasinya
+		if($data['anggota']->pengurus == 1){
+			echo " Pengurus ";
+		}
+
+
 		// $results = DB::select( DB::raw("SELECT * FROM some_table WHERE some_col = '$someVariable'") );
 		// $value = session('user') ? session('user') : [];
 

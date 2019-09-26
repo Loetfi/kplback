@@ -85,8 +85,9 @@
 														<th>Nilai Angsuran</th>
 														<th>Plafon</th>
 														<th>Bunga</th>
+														<th>Jangka Waktu</th>
 														<th>Angsuran ke</th>
-														<th>Pembayaran</th>
+														<th>Sisa Angsuran</th>
 														<th>Kantor</th>
 														
 													</tr>
@@ -100,8 +101,16 @@
 														<td>Rp. {{ number_format($d->nangsuran) }} / {{ $d->satuan }}</td>
 														<td>Rp. {{ number_format($d->plafon) }}</td>
 														<td>{{ $d->bunga}}%</td>
+														<td>{{ $d->jangkawaktu }}</td>
 														<td>{{ $d->angsuranke }}</td>
-														<td>{{ $d->pembayaran }}</td>
+														<td>
+															@if ($d->angsuranke < 1)
+															<a class="btn btn-success btn-sm btn-disabled"> Lunas </a>
+															@elseif($d->angsuranke > 0)
+															{{ $d->jangkawaktu -  $d->angsuranke }}
+															@endif
+															
+														</td>
 														<td>{{ $d->namakantor }}</td>
 														
 													</tr>
