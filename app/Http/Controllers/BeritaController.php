@@ -145,24 +145,35 @@ class BeritaController extends Controller
 
 	public function prosesadd(Request $request){
 
+		
+
 		$this->validate($request, [
 			'file' 			=> 'required',
-			'keterangan' 	=> 'required',
+			'judulberita' 	=> 'required',
+			'tanggal' 	=> 'required',
+			'isiberita' 	=> 'required'
 		]);
 
 		// menyimpan data file yang diupload ke variabel $file
 		$file = $request->file('file');
 		$tujuan_upload = 'data_file';
 		// upload file
-		$file->move($tujuan_upload,time().'.jpg');
+		$file->move($tujuan_upload,'berita'.time().'.jpg');
 
-		$url = url('data_file/'.time().'.jpg');
+		$url = url('data_file/berita'.time().'.jpg');
+
+		// dd($url);
 
 		$insert = array(
 			'link' 	=> $url,
-			'nama'	=> $request->keterangan
+			'judul'	=> $request->judulberita,
+			'tanggal'	=> $request->tanggal,
+			'isi'	=> $request->isiberita,
+			'status' => 1
 		);
-		$res = (object) RestCurl::exec('POST',env('LINK_API').'promo/add',$insert);
+		
+
+		$res = (object) RestCurl::exec('POST',env('LINK_API').'berita/add',$insert);
 		if ($res->status == 200) {
 			$data = $res->data;
 			// echo $data->message;
@@ -171,8 +182,9 @@ class BeritaController extends Controller
 			// echo $data->message;
 		}
 
-		return redirect('promo');
+		return redirect('berita');
 	}
+
 }
 
 

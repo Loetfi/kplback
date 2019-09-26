@@ -133,8 +133,11 @@ class PromoController extends Controller
 	// add
 	public function add(){
 
-		$list =  @$r->data->data->data;
-		return view("promo/add")->with('list',$list);
+		$list =  array(
+			'list' => @$r->data->data->data,
+			'title'	=> 'Promo'
+		);
+		return view("promo/add")->with($list);
 	}
 
 	public function prosesadd(Request $request){

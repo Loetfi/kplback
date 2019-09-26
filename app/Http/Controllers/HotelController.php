@@ -11,7 +11,7 @@ use Carbon\Carbon;
 
 class HotelController extends Controller
 { 
-	public $title = 'Tiketing Pesawat';
+	public $title = 'Tiketing Hotel';
 	
 	public function __construct()
 	{
