@@ -24,8 +24,14 @@
 					<div class="alert alert-default" role="alert">
 						<h4 class="alert-heading">Hai , {{ $anggota->nama }}</h4>
 					</div>
+					<div class="alert alert-primary">
+						SHU Modal: Rp. - ( akan hadir )
+					</div>
 					<div class="alert alert-info">
 						SHU Toko: Rp. {{ $final_laba_toko_per_orang }} 
+					</div>
+					<div class="alert alert-warning">
+						SHU SP: Rp. - ( akan hadir )
 					</div>
 					<div id="accordianId" role="tablist" aria-multiselectable="true">
 						<div class="card">
