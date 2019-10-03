@@ -25,7 +25,7 @@
 						<h4 class="alert-heading">Hai , {{ $anggota->nama }}</h4>
 					</div>
 					<div class="alert alert-primary">
-						SHU Modal: Rp. {{ $final_hasil_presentase_shu_modal }} ( akan hadir )
+						SHU Modal: Rp. {{ $final_hasil_presentase_shu_modal }}
 						<p>Total modal keseluruhan dari simpanan wajib dan pokok</p>
 					</div>
 					<div class="alert alert-info">
