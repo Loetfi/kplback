@@ -24,6 +24,7 @@
 					<div class="alert alert-success" role="alert">
 						<h4 class="alert-heading">Hai , {{ $anggota->nama }}</h4>
 					</div>
+					<p>SHU : {{ $final_laba_toko_per_orang }} </p>
 					<div id="accordianId" role="tablist" aria-multiselectable="true">
 						<div class="card">
 							<div class="card-header" role="tab" id="section1HeaderId">
@@ -35,7 +36,7 @@
 							</div>
 							<div id="section1ContentId" class="collapse in" role="tabpanel" aria-labelledby="section1HeaderId">
 								<div class="card-body">
-										<table class="table">
+										<table class="table table-responsive">
 												<thead>
 													<tr>
 														<th>Tanggal</th>
@@ -44,16 +45,6 @@
 													</tr>
 												</thead>
 												<tbody>
-													<div class="row">
-														Filter : 
-														<select name="" id="">
-															<option value=""> {{ date('d F Y') }} </option>
-														</select>
-														s/d 
-														<select name="" id="">
-															<option value=""> {{ date('d F Y') }} </option>
-														</select>
-													</div>
 													@foreach ($penjualan as $d)
 													<tr>
 														<td scope="row">{{ date('d F Y',strtotime($d->tanggal)) }}</td>
@@ -76,7 +67,7 @@
 							</div>
 							<div id="section2ContentId" class="collapse in" role="tabpanel" aria-labelledby="section2HeaderId">
 								{{-- <div class="card-body"> --}}
-										<table class="table">
+										<table class="table table-responsive">
 												<thead>
 													<tr>
 														<th>Nama Pinjaman</th>
@@ -113,6 +104,38 @@
 														</td>
 														<td>{{ $d->namakantor }}</td>
 														
+													</tr>
+													@endforeach 
+												</tbody>
+											</table>
+								{{-- </div> --}}
+							</div>
+						</div>
+
+						<!-- simpanan -->
+
+						<div class="card">
+							<div class="card-header" role="tab" id="section3HeaderId">
+								<h5 class="mb-0">
+									<a data-toggle="collapse" data-parent="#accordianId" href="#section3ContentId" aria-expanded="true" aria-controls="section2ContentId">
+											Transaksi Simpanan
+							</a>
+								</h5>
+							</div>
+							<div id="section3ContentId" class="collapse in" role="tabpanel" aria-labelledby="section3HeaderId">
+								{{-- <div class="card-body"> --}}
+										<table class="table table-responsive">
+												<thead>
+													<tr>
+														<th>Nama Simpanan</th>
+														<th>Saldo</th> 
+													</tr>
+												</thead>
+												<tbody> 
+													@foreach ($simpanan as $d)
+													<tr>
+														<td>{{ $d['simpanan'] }}</td>
+														<td>Rp. {{ $d['saldo'] }}</td>
 													</tr>
 													@endforeach 
 												</tbody>

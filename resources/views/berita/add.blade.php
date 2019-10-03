@@ -17,15 +17,23 @@
             </div>
             @endif
             
-            <form action="{{ url('promo/add') }}" method="POST" enctype="multipart/form-data">
+            <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+            <script>
+                tinymce.init({
+                    selector: '#tinymceriobermano'
+                });
+            </script>
+            
+            
+            <form action="{{ url('berita/add') }}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }} 
                 <div class="form-group">
                     <b>Tanggal</b>
-                    <textarea class="form-control" name="keterangan"></textarea>
+                    <input class="form-control" type="date" name="tanggal">
                 </div>
                 <div class="form-group">
                     <b>Judul Berita</b>
-                    <textarea class="form-control" name="keterangan"></textarea>
+                    <input class="form-control" name="judulberita">
                 </div>
                 <div class="form-group">
                     <b>File Gambar</b><br/>
@@ -33,7 +41,7 @@
                 </div>
                 <div class="form-group">
                     <b>Isi Berita</b>
-                    <textarea class="form-control" name="keterangan"></textarea>
+                    <textarea class="form-control" name="isiberita" id="tinymceriobermano"></textarea>
                 </div>
                 
                 <input type="submit" value="Upload" class="btn btn-primary">

@@ -23,9 +23,8 @@
                     <tr>
                         <th>ID</th>
                         <th>Tanggal</th>
-                        <th>Judul Berita</th>
-                        {{-- <th>total</th> --}}
-                        {{-- <th>status approval</th> --}}
+                        <th>Gambar</th>
+                        <th>Judul</th>
                         <th>Aksi</th>
                     </tr>
                 </thead> 
@@ -33,12 +32,13 @@
                     @foreach ($data as $d)
                     <tr>
                         <td>{{ $d->id_berita }}</td>
-                        <td>{{ date('d F Y H:i:s' ,strtotime($d->tanggal_berita)) }}</td>
+                        <td>{{ date('d F Y' ,strtotime($d->tanggal_berita)) }}</td>
+                        <td> <img src="{{ $d->gambar_berita }}" width="100px">  </td>
                         <td>{{ $d->judul_berita }}</td>
                         <td> 
                             <a href="{{ url('berita/detail/'.$d->id_berita) }}" class="btn btn-sm btn-success">Detail</a>
-                            <a href="{{ url('berita/detail/'.$d->id_berita) }}" class="btn btn-sm btn-success">Edit</a>
-                            <a href="{{ url('berita/detail/'.$d->id_berita) }}" class="btn btn-sm btn-danger">Hapus</a>
+                            <a href="{{ url('berita/edit/'.$d->id_berita) }}" class="btn btn-sm btn-success">Edit</a>
+                            <a href="{{ url('berita/hapus/'.$d->id_berita) }}" class="btn btn-sm btn-danger">Hapus</a>
                         </td>
                     </tr> 
                     @endforeach

@@ -78,6 +78,8 @@
                     </tr>
                 </table>
                 
+                {{-- {{ print_r($data->detail) }} --}}
+
                 @foreach ($data->detail as $d)
                 <table class="table table-bordered table-hover">
                     <tr>
@@ -86,42 +88,29 @@
                         <td>{{ $d->nama_layanan}} {{ $d->nama_kategori}}</td>
                     </tr>
                     <tr>
-                        <td>Waktu Keberangkatan</td>
+                        <td>Nama Hotel</td>
                         <td>:</td>
-                        <td>{{ date('d F Y H:i:s' , strtotime($d->waktu_keberangkatan)) }}</td>
+                        <td>{{ $d->nama_hotel}}</td>
                     </tr>
                     <tr>
-                        <td>Kursi Kelas</td>
+                        <td>Check In</td>
                         <td>:</td>
-                        <td>{{ $d->kursi_kelas }} </td>
+                        <td>{{ date('d F Y', strtotime($d->check_in)) }} </td>
                     </tr>
                     <tr>
-                        <td>Dari</td>
+                        <td>Check Out</td>
                         <td>:</td>
-                        <td>{{ $d->dari }}</td>
+                        <td>{{ date('d F Y', strtotime($d->check_out)) }}</td>
                     </tr>
                     <tr>
-                        <td>Ke</td>
+                        <td>Tamu</td>
                         <td>:</td>
-                        <td>{{ $d->ke }}</td>
+                        <td>{{ $d->tamu }}</td>
                     </tr>
                     <tr>
-                        <td>Jumlah Penumpang</td>
+                        <td>Room</td>
                         <td>:</td>
-                        <td>{{ $d->penumpang }}</td>
-                    </tr>
-                    
-                    <tr>
-                        <td rowspan="3">Detail Penumpang</td>
-                        <td rowspan="3">:</td>
-                        <td>    
-                            @php ($penumpang = explode(';',$d->nama_penumpang))
-                            @foreach ($penumpang as $items)
-                            <tr>
-                                <td>{{ $items }}</td>
-                            </tr>
-                            @endforeach
-                        </td>
+                        <td>{{ $d->rooms }}</td>
                     </tr>
                     
                 </table> 

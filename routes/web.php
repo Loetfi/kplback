@@ -21,11 +21,17 @@ Route::post('login','AuthController@proses')->name('login');
 Route::get('logout','AuthController@logout');
 
 
+Route::get('backup','BackupDatabaseController@index');
+
+
 
 Route::group(['middleware' => ['checksessionlogin']], function () {
 
     Route::get('/berita','BeritaController@index')->name('berita');
     Route::get('/berita/add','BeritaController@add')->name('berita/add');
+    Route::post('/berita/add','BeritaController@prosesadd')->name('berita/add');
+    Route::get('/berita/detail/{id}','BeritaController@index');
+    Route::get('/berita/edit/{id}','BeritaController@index');
 
     Route::get('/promo','PromoController@index')->name('promo');
     Route::get('/promo/add','PromoController@add');

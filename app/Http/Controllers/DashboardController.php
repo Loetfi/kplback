@@ -28,10 +28,61 @@ class DashboardController extends Controller
 		$data['anggota'] = DB::table('anggota')->where('id',$request->anggotaid)->get()->first(); 
 
 		$data['pinjaman'] = DB::select(DB::raw("SELECT d.nama as namakantor, b.nama as namapinjaman, c.nama as namajaminan,   a.* from pinjaman a 
-		inner join pinjjenis b on a.jenisid = b.id
-		left join jaminan c on a.jaminanid = c.id
-		left join kantor d on a.kantorid = d.id
-		where anggotaid = '".$request->anggotaid."'"));
+			inner join pinjjenis b on a.jenisid = b.id
+			left join jaminan c on a.jaminanid = c.id
+			left join kantor d on a.kantorid = d.id
+			where anggotaid = '".$request->anggotaid."'"));
+
+		// shu laba toko 
+		$date = date('Y');
+		$d['laba_toko_per_orang'] = DB::select(DB::raw("SELECT sum(bayar), sum(kembalian) , sum(bayar-kembalian) as labatoko from penjualan
+			where pelangganid = '".$request->anggotaid."'
+			group by year(tanggal) = '$date' "));
+
+		
+
+		// presentase laba toko 25% dari total laba toko, sp, cad
+		$presentase_laba_toko = ceil(76763170 * 30 / 100 );
+
+		// mencari presentase untuk laba toko 
+		$laba_toko_pertahun_semua_anggota = DB::select(DB::raw("SELECT sum(bayar), sum(kembalian) , sum(bayar-kembalian) as labatoko from penjualan where  year(tanggal) = '$date' "));
+		// echo $laba_toko_pertahun_semua_anggota;
+		// dd($laba_toko_pertahun_semua_anggota);
+		$result_laba_toko_pertahun_semua_anggota = $laba_toko_pertahun_semua_anggota[0]->labatoko;
+
+		// prsentase laba toko 25%
+		$hasil = ($presentase_laba_toko / $result_laba_toko_pertahun_semua_anggota) * 100;
+
+		$hasil_presentase_laba_toko = round($hasil,2);
+
+		// laba toko dari anggota ini 
+		$data['laba_toko_per_orang'] = $d['laba_toko_per_orang'][0]->labatoko;
+		// nilai shu perorang
+		$data['final_laba_toko_per_orang'] = number_format(ceil($data['laba_toko_per_orang'] / $hasil_presentase_laba_toko));
+
+
+		// simpanan
+		$simpanan_pokok = DB::select(DB::raw("SELECT a.norekening, b.nama from tabungan a 
+			inner join tabjenis b on a.jenisid = b.id
+			where anggotaid = '".$request->anggotaid."'" ));
+
+		foreach ($simpanan_pokok as $simpanan) {
+					// echo $simpanan->norekening;
+					$cari_simpanan_tabungan = DB::select(DB::raw("SELECT saldo from accjurnal a 
+			left join accjurnaldetail b on a.id = b.id
+			left join tabtransaksi c on a.id = c.jurnalid
+			where a.keterangan like '%".$simpanan->norekening."%' order by a.tanggal desc 
+			limit 1  "));
+
+					$ddd['simpanan'] = ['simpanan' => $simpanan->nama , 'saldo' => number_format($cari_simpanan_tabungan[0]->saldo)];
+					$simpananasli[] = $ddd['simpanan'];
+		}
+
+		$data['simpanan'] = $simpananasli;
+
+
+
+
 
 
 		// jika pengurus lebih banyak lagi informasinya
@@ -46,7 +97,7 @@ class DashboardController extends Controller
 		// if (sizeof($value)>0) {
 		// 	return redirect('dashboard');
 		// } else {
-			return view('pengurus_dashboard',with($data));
+		return view('pengurus_dashboard',with($data));
 		// }
-    }
+	}
 }
