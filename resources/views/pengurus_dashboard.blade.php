@@ -21,10 +21,12 @@
 			<div class="card shadow mb-4">
 				<!-- Card Body -->
 				<div class="card-body">
-					<div class="alert alert-success" role="alert">
+					<div class="alert alert-default" role="alert">
 						<h4 class="alert-heading">Hai , {{ $anggota->nama }}</h4>
 					</div>
-					<p>SHU : {{ $final_laba_toko_per_orang }} </p>
+					<div class="alert alert-info">
+						SHU Toko: Rp. {{ $final_laba_toko_per_orang }} 
+					</div>
 					<div id="accordianId" role="tablist" aria-multiselectable="true">
 						<div class="card">
 							<div class="card-header" role="tab" id="section1HeaderId">
