@@ -17,6 +17,71 @@ class DashboardController extends Controller
 		return view('dashboard')->with($data);
 	}
 	public function index(Request $request){
+		$date_jasa = date('Y')-1;
+		$date_jasa_dua = date('Y')-2;
+		$date = date('Y');
+
+		// angka static dari jasa 25 % seharusnya 
+		// N3
+		$angka_hasil_pertahun = 76763170;
+
+		
+
+
+		// jasa pinjaman all anggota
+		/*$cari_jasa_pinjaman_all = DB::select(DB::raw("SELECT anggotaid from pinjaman a
+		inner join pinjjenis b on a.jenisid = b.id
+		inner join apps_jasa_pinjaman f on b.kode = f.kode
+		where year(tanggal) = $date_jasa ")); 
+
+		$jumlah_jasa_pinjaman_all = 0;
+		foreach ($cari_jasa_pinjaman_all as $jasa_all) {
+			$cari_jasa_pinjaman_all_dua = DB::select(DB::raw("SELECT a.anggotaid, a.tanggal, a.jangkawaktu, a.angsuranke, a.plafon, f.jasa
+				from pinjaman a 
+			inner join pinjjenis b on a.jenisid = b.id
+			inner join apps_jasa_pinjaman f on b.kode = f.kode
+			where anggotaid = '".$jasa_all->anggotaid."' 
+			limit 1 "));
+
+			$res_all = ( ( $cari_jasa_pinjaman_all_dua[0]->jasa * $cari_jasa_pinjaman_all_dua[0]->plafon ) / 100 ) * 12 ;
+
+			$jumlah_jasa_pinjaman_all += $res_all;
+		}*/
+		// end
+
+		$jumlah_jasa_pinjaman_all = DB::select(DB::raw("SELECT * from apps_kolektif_data"));
+
+		$final_jumlah_jasa_pinjaman_all = $jumlah_jasa_pinjaman_all[0]->total_jasa_pinjaman;
+
+		// jasa perorangannya :
+		$cari_jasa_pinjaman = DB::select(DB::raw("SELECT a.plafon, f.jasa
+				from pinjaman a 
+			inner join pinjjenis b on a.jenisid = b.id
+			inner join apps_jasa_pinjaman f on b.kode = f.kode
+			where anggotaid = '".$request->anggotaid."'  and  year(a.tanggal) in ( $date_jasa, $date_jasa_dua )
+			limit 1 "));
+		// dd($cari_jasa_pinjaman);
+
+		$res_jasa = ( ( $cari_jasa_pinjaman[0]->jasa * $cari_jasa_pinjaman[0]->plafon ) / 100 ) * 12 ;
+		
+
+		// angka O4
+		$hasil_angka_hasil_pertahun_shu_sp = ( $angka_hasil_pertahun * 70 ) / 100;
+		$presentase_hasil_angka_hasil_pertahun_shu_sp  = round(( $hasil_angka_hasil_pertahun_shu_sp / $final_jumlah_jasa_pinjaman_all ) * 100 );
+		$final_shu_orang = ceil(( $presentase_hasil_angka_hasil_pertahun_shu_sp * $res_jasa  ) / 100) ;
+
+		$data['final_shu_orang'] = !empty($final_shu_orang) ? $final_shu_orang : 0;
+		// dd([$final_jumlah_jasa_pinjaman_all, $res_jasa, @$presentase_hasil_angka_hasil_pertahun_shu_sp, $final_shu_orang]);
+		// die;
+		
+
+		
+
+
+		
+
+
+
 
 		$data['penjualan'] = DB::table('penjualan')->where('pelangganid',$request->anggotaid)
 		->orderBy('tanggal','desc')
@@ -34,7 +99,7 @@ class DashboardController extends Controller
 			where anggotaid = '".$request->anggotaid."'"));
 
 		// shu laba toko 
-		$date = date('Y');
+		
 		// $d['laba_toko_per_orang'] = DB::select(DB::raw("SELECT sum(bayar), sum(kembalian) , sum(bayar-kembalian) as labatoko from penjualan
 		// 	where pelangganid = '".$request->anggotaid."'
 		// 	group by year(tanggal) = '$date' "));
@@ -47,7 +112,7 @@ class DashboardController extends Controller
 			"));
 
 		// presentase laba toko 25% dari total laba toko, sp, cad
-		$presentase_laba_toko = ceil(76763170 * (30 / 100) ); // = N4
+		$presentase_laba_toko = ceil($angka_hasil_pertahun * (30 / 100) ); // = N4
 
 		// mencari presentase untuk laba toko 
 		$laba_toko_pertahun_semua_anggota = DB::select(DB::raw("SELECT sum(hargajual - hargastok) as labatoko from penjualan a 
@@ -88,8 +153,8 @@ class DashboardController extends Controller
 
 					$ddd['simpanan'] = [
 						'simpanan' => $simpanan->nama , 
-						'saldo' => number_format($cari_simpanan_tabungan[0]->saldo),
-						'saldo_real' => $cari_simpanan_tabungan[0]->saldo,
+						'saldo' => !empty($cari_simpanan_tabungan[0]->saldo) ? number_format($cari_simpanan_tabungan[0]->saldo) : 0,
+						'saldo_real' => !empty($cari_simpanan_tabungan[0]->saldo) ? $cari_simpanan_tabungan[0]->saldo : 0,
 					];
 					$simpananasli[] = $ddd['simpanan'];
 		}
@@ -101,16 +166,12 @@ class DashboardController extends Controller
 
 
 
-
+/*
 		$simpanan_pokok_all = DB::select(DB::raw("SELECT a.norekening, b.nama, c.nama as namaanggota from tabungan a 
 			inner join tabjenis b on a.jenisid = b.id
 			inner join anggota c on a.anggotaid = c.id
 			where 
-			jenis in (1,2)"));
-		// anggotaid = '".$request->anggotaid."' and 
-		// dd($simpanan_pokok);
-		// dd($simpanan_pokok_all);
-			 // where anggotaid = '".$request->anggotaid."'"
+			jenis in (1,2)")); 
 		$total = 0;
 		// echo "<table border='1'>";
 		foreach ($simpanan_pokok_all as $simpanan_all) {
@@ -122,52 +183,15 @@ class DashboardController extends Controller
 			where a.keterangan like '%".$simpanan_all->norekening."%'
 			group by a.id, saldo
 			order by a.tanggal desc 
-			limit 1 "));
-			
-			// if(!empty($cari_simpanan_tabungan_all[0])){
-				
-			// 	echo "<tr>";
-			// 	echo "<td>";
-			// 	echo $simpanan_all->namaanggota;
-			// 	echo "</td>";
-			// 	echo "<td>";
-			// 	echo $simpanan_all->nama;
-			// 	echo "</td>";
-			// 	echo "<td>";
-			// 	echo $cari_simpanan_tabungan_all[0]->saldo;
-			// 	echo "</td>";
-			// 	echo "</tr>";
-				
-			// }
-			/*SELECT saldo from accjurnal a 
-			left join accjurnaldetail b on a.id = b.id
-			left join tabtransaksi c on a.id = c.jurnalid
-			where a.keterangan like '%".$simpanan_all->norekening."%' order by a.tanggal desc 
-			limit 1 */
-
-			 // $cari_simpanan_tabungan_all_oke[] = $cari_simpanan_tabungan_all;
-				// 	$ddd_all['simpanan'] = [
-				// 		'simpanan' => $simpanan_all->nama , 
-				// 		'saldo' => number_format($cari_simpanan_tabungan_all[0]->saldo),
-				// 		'saldo_real' => $cari_simpanan_tabungan_all[0]->saldo,
-				// 	];
-				// 	$simpananasli_all[] = $ddd_all['simpanan'];
-
-			// $cari_simpanan_tabungan_all_oke[] = $cari_simpanan_tabungan_all;
-
+			limit 1 ")); 
 			if(!empty($cari_simpanan_tabungan_all[0])){
 				$total += $cari_simpanan_tabungan_all[0]->saldo;		
 			}
 		
 		}
 		// echo "</table>";
-		
-
-		// dd($total);
-
-
-
-
+		*/
+		$total = $jumlah_jasa_pinjaman_all[0]->total_simpanan_pokok; 
 
 		// shu modal
 
@@ -176,6 +200,9 @@ class DashboardController extends Controller
 		$hasil_presentase_shu_modal = round($presentase_shu_modal,2);
 
 		$data['final_hasil_presentase_shu_modal'] = number_format(ceil(($hasil_presentase_shu_modal * $total_modal_usaha ) / 100));
+
+
+
 
 
 

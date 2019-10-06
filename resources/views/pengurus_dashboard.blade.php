@@ -32,7 +32,7 @@
 						<strong>SHU Toko: Rp. {{ $final_laba_toko_per_orang }} </strong>
 					</div>
 					<div class="alert alert-warning">
-						SHU Simpan Pinjam : Rp. - ( akan hadir )
+						<strong> SHU Simpan Pinjam : Rp. {{ number_format($final_shu_orang) }} </strong>
 					</div>
 					<div id="accordianId" role="tablist" aria-multiselectable="true">
 						<div class="card">
