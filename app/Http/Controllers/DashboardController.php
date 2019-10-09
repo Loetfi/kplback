@@ -62,7 +62,7 @@ class DashboardController extends Controller
 			limit 1 "));
 		// dd($cari_jasa_pinjaman);
 
-		$res_jasa = ( ( $cari_jasa_pinjaman[0]->jasa * $cari_jasa_pinjaman[0]->plafon ) / 100 ) * 12 ;
+		$res_jasa = ( ( @$cari_jasa_pinjaman[0]->jasa * @$cari_jasa_pinjaman[0]->plafon ) / 100 ) * 12 ;
 		
 
 		// angka O4
