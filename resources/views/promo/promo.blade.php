@@ -48,7 +48,7 @@
                                 <td>{{ $d->nama_promo }}</td>
                                 <td><img src="{{ $d->url_promo }}"  width="200px"></td>
                                 <td>
-                                    @if ($d->status === 1)
+                                    @if ($d->status == 1)
                                     <button type="button" class="btn btn-sm btn-primary disabled">Aktif</button>
                                     @else
                                     <button type="button" class="btn btn-sm btn-danger disabled">Tidak Aktif</button>

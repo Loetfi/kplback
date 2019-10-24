@@ -21,7 +21,6 @@ class PromoController extends Controller
 		} else {
 			$d = [];
 		}
-		// dd();
 
 		$data = array(
 			'title' => 'Promo', 
