@@ -62,8 +62,42 @@
 														<td>Rp. {{ number_format($d->bayar) }}</td>
 														<td>{{ $d->tempo}} Hari</td>
 														<td>
-															
+
+															<!-- jika transaksi dilakukan di atas tanggal 20 -->
+															@if ( date('d', strtotime($d->tanggal)) > 20  and $d->tempo > 0 )
+
 															@if( date("Y-m-d",strtotime("+2 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) >= date("Y-m-01") and $d->tempo > 0 )
+
+															{{ 'dipotong pada : ' . date("d F Y",strtotime("+2 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) }}
+
+															@endif
+
+															<!-- jika transaksi dilakukan dibawah tanggal 20 -->
+															@elseif ( date('d', strtotime($d->tanggal)) <= 20  and $d->tempo > 0 )
+
+
+															@if( date("Y-m-d",strtotime("+1 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) >= date("Y-m-01") and $d->tempo > 0 )
+
+															@php $diff = date("Y-m-d",strtotime("+1 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))); @endphp
+															
+															@if ( date('Y-m-d') > $diff  )
+																<a href="#" class="btn btn-sm btn-disabled btn-success">Lunas</a>
+															@else 
+																{{ 'dipotong pada : ' . date("d F Y",strtotime("+1 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) }}
+															@endif
+															
+
+															@else 
+															<a href="#" class="btn btn-sm btn-disabled btn-success">Lunas</a>
+															@endif
+
+
+															
+
+
+															@endif
+															
+															<!-- @if( date("Y-m-d",strtotime("+2 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) >= date("Y-m-01") and $d->tempo > 0 )
 
 															{{ 'dipotong pada : ' . date("d F Y",strtotime("+2 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) }}
 
@@ -71,7 +105,7 @@
 
 															<a href="#" class="btn btn-sm btn-disabled btn-success">Lunas</a>
 
-															@endif
+															@endif -->
 
 														
 														</td>
