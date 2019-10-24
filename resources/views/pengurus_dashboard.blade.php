@@ -51,14 +51,30 @@
 														<th>Tanggal</th>
 														<th>Total Belanja</th>
 														<th>Tempo</th>
+														<th>Status</th>
 													</tr>
 												</thead>
 												<tbody>
 													@foreach ($penjualan as $d)
 													<tr>
+
 														<td scope="row">{{ date('d F Y',strtotime($d->tanggal)) }}</td>
 														<td>Rp. {{ number_format($d->bayar) }}</td>
 														<td>{{ $d->tempo}} Hari</td>
+														<td>
+															
+															@if( date("Y-m-d",strtotime("+2 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) >= date("Y-m-01") and $d->tempo > 0 )
+
+															{{ 'dipotong pada : ' . date("d F Y",strtotime("+2 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) }}
+
+															@else
+
+															<a href="#" class="btn btn-sm btn-disabled btn-success">Lunas</a>
+
+															@endif
+
+														
+														</td>
 													</tr>
 													@endforeach 
 												</tbody>
@@ -104,9 +120,9 @@
 														<td>{{ $d->jangkawaktu }}</td>
 														<td>{{ $d->angsuranke }}</td>
 														<td>
-															@if ($d->angsuranke < 1)
+															@if ($d->angsuranke == $d->jangkawaktu)
 															<a class="btn btn-success btn-sm btn-disabled"> Lunas </a>
-															@elseif($d->angsuranke > 0)
+															@elseif($d->angsuranke > -1)
 															{{ $d->jangkawaktu -  $d->angsuranke }}
 															@endif
 															

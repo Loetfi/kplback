@@ -47,7 +47,11 @@ class DashboardController extends Controller
 
 			$jumlah_jasa_pinjaman_all += $res_all;
 		}*/
+
+		// dd($jumlah_jasa_pinjaman_all);
 		// end
+
+
 
 		$jumlah_jasa_pinjaman_all = DB::select(DB::raw("SELECT * from apps_kolektif_data"));
 
