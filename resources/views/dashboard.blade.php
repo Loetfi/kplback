@@ -17,10 +17,10 @@ var ctx = document.getElementById("myPieChart");
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["Jasa Pinjam", "Jasa SP", "Laba Toko"],
+    labels: ["Laba Pinjaman", "Total Simpanan Anggota", "Laba Toko dari Anggota" , "Laba Toko All"],
     datasets: [{
-      data: [ {{ $jasa_pinjam  }} , {{ $jasa_sp  }} , {{ $laba_toko }} ],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+      data: [ {{ $jasa_pinjam  }} , {{ $jasa_sp  }} , {{ $laba_toko }} , {{ $laba_toko_all }} ],
+      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc' , '#ffff00'],
       hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
@@ -165,15 +165,19 @@ var myPieChart = new Chart(ctx, {
 							</div>
 							<div class="mt-4 text-center small">
 								<span class="mr-2">
-									<i class="fas fa-circle text-primary"></i> Jasa Pinjam Rp. {{ number_format($jasa_pinjam) }}
+									<i class="fas fa-circle text-primary"></i> Laba Pinjaman Rp. {{ number_format($jasa_pinjam) }}
 								</span>
 								<br>
 								<span class="mr-2">
-									<i class="fas fa-circle text-success"></i> Jasa SP Rp. {{ number_format($jasa_sp) }}
+									<i class="fas fa-circle text-success"></i>Total Simpanan Anggota  Rp. {{ number_format($jasa_sp) }}
 								</span>
 								<br>
 								<span class="mr-2">
-									<i class="fas fa-circle text-info"></i> Laba Toko Rp. {{ number_format($laba_toko) }}
+									<i class="fas fa-circle text-info"></i> Laba Toko dari Anggota Rp. {{ number_format($laba_toko) }}
+								</span>
+								<br>
+								<span class="mr-2">
+									<i class="fas fa-circle text-warning"></i> Laba Toko Keseluruhan Rp. {{ number_format($laba_toko_all) }}
 								</span>
 							</div>
 						</div>

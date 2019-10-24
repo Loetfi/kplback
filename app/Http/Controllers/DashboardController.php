@@ -30,8 +30,13 @@ class DashboardController extends Controller
 		$laba_toko = DB::select(DB::raw("SELECT sum(hargajual - hargastok) as labatoko from penjualan a 
 			inner join penjualandetail b on a.id = b.id
 			left join barang c on c.id  = b.barangid
-			where  year(tanggal) = '$date' "));
+			where  year(tanggal) = '$date' 
+			and a.pelangganid not in (SELECT id as total from anggota where (noanggota not like 'P2.%' )) "));
 
+		$laba_toko_all = DB::select(DB::raw("SELECT sum(hargajual - hargastok) as labatoko from penjualan a 
+			inner join penjualandetail b on a.id = b.id
+			left join barang c on c.id  = b.barangid
+			where  year(tanggal) = '$date'"));
 		// dd($sumber);
 
 		$data = array(
@@ -41,7 +46,8 @@ class DashboardController extends Controller
 			'anggota_aktif' => $anggota_aktif[0]->total,
 			'jasa_pinjam' => $sumber[0]->total_jasa_pinjaman,
 			'jasa_sp' => $sumber[0]->total_simpanan_pokok,
-			'laba_toko' => $laba_toko[0]->labatoko
+			'laba_toko' => $laba_toko[0]->labatoko,
+			'laba_toko_all'	=> $laba_toko_all[0]->labatoko
 		);
 
 		return view('dashboard')->with($data);
@@ -50,6 +56,7 @@ class DashboardController extends Controller
 		$date_jasa = date('Y')-1;
 		$date_jasa_dua = date('Y')-2;
 		$date = date('Y');
+		$simpananasli = [];
 
 		// angka static dari jasa 25 % seharusnya 
 		// N3
@@ -148,11 +155,12 @@ class DashboardController extends Controller
 		// presentase laba toko 25% dari total laba toko, sp, cad
 		$presentase_laba_toko = ceil($angka_hasil_pertahun * (30 / 100) ); // = N4
 
-		// mencari presentase untuk laba toko 
+		// mencari presentase untuk laba toko  
 		$laba_toko_pertahun_semua_anggota = DB::select(DB::raw("SELECT sum(hargajual - hargastok) as labatoko from penjualan a 
 			inner join penjualandetail b on a.id = b.id
 			left join barang c on c.id  = b.barangid
-			where  year(tanggal) = '$date' "));
+			where  year(tanggal) = '$date' 
+			and a.pelangganid not in (SELECT id as total from anggota where (noanggota not like '%P2.%' )) "));
 		// echo $laba_toko_pertahun_semua_anggota;
 		// dd($laba_toko_pertahun_semua_anggota);
 		$result_laba_toko_pertahun_semua_anggota = $laba_toko_pertahun_semua_anggota[0]->labatoko;
@@ -195,7 +203,7 @@ class DashboardController extends Controller
 
 		$data['simpanan'] = $simpananasli;
 
-		$total_modal_usaha = $data['simpanan'][1]['saldo_real']+$data['simpanan'][0]['saldo_real']; // h37
+		$total_modal_usaha = @$data['simpanan'][1]['saldo_real']+@$data['simpanan'][0]['saldo_real']; // h37
 		// dd($data['simpanan']);
 
 

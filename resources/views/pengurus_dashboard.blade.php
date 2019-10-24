@@ -191,12 +191,16 @@
 													</tr>
 												</thead>
 												<tbody> 
+													@if(empty($simpanan))
+														Tidak ada simpanan
+													@else
 													@foreach ($simpanan as $d)
 													<tr>
 														<td>{{ $d['simpanan'] }}</td>
 														<td>Rp. {{ $d['saldo'] }}</td>
 													</tr>
 													@endforeach 
+													@endif
 												</tbody>
 											</table>
 								{{-- </div> --}}
