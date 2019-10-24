@@ -47,6 +47,7 @@ class PromoController extends Controller
 			return redirect('promo')->with($data);
 		}
 
+
 		$data = array(
 			'title' => 'Edit Promo', 
 			'desc'	=> 'Manajemen Promo, Mulai dari Tambah, Edit, Hapus ',
@@ -76,7 +77,7 @@ class PromoController extends Controller
 			// upload file
 			$file->move($tujuan_upload,time().'.jpg');
 
-			$url = env('URL_PUBLIC_API').'data_file/'.time().'.jpg';
+			$url = url('data_file/'.time().'.jpg');
 		} else {
 			$url = 'no-image';
 		}
@@ -152,7 +153,7 @@ class PromoController extends Controller
 		// upload file
 		$file->move($tujuan_upload,time().'.jpg');
 
-		$url = env('URL_PUBLIC_API').'data_file/'.time().'.jpg';
+		$url = url('data_file/'.time().'.jpg');
 
 		$insert = array(
 			'link' 	=> $url,
