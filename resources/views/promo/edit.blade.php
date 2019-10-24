@@ -33,8 +33,8 @@
                 <div class="form-group">
                     <label for="">Status Promo</label>
                     <select class="form-control" name="status">
-                        <option value="1" @if ($data->status === 1) selected="" @endif>Aktif</option>
-                        <option value="0" @if ($data->status === 0) selected="" @endif>Tidak Aktif</option>
+                        <option value="1" @if ($data->status == 1) selected @endif>Aktif</option>
+                        <option value="0" @if ($data->status == 0) selected @endif>Tidak Aktif</option>
                     </select>
                 </div>
 
