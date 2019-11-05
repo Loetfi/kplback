@@ -59,7 +59,7 @@
 													<tr>
 
 														<td scope="row">{{ date('d F Y',strtotime($d->tanggal)) }}</td>
-														<td>Rp. {{ number_format($d->bayar) }}</td>
+														<td>Rp. {{ number_format($d->bayar - $d->kembalian) }}</td>
 														<td>{{ $d->tempo}} Hari</td>
 														<td>
 
