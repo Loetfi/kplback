@@ -61,6 +61,7 @@ class DashboardController extends Controller
 		// angka static dari jasa 25 % seharusnya 
 		// N3
 		$angka_hasil_pertahun = 76763170;
+		// 76763170
 
 		
 
@@ -108,6 +109,8 @@ class DashboardController extends Controller
 
 		// angka O4
 		$hasil_angka_hasil_pertahun_shu_sp = ( $angka_hasil_pertahun * 70 ) / 100;
+
+		
 		$presentase_hasil_angka_hasil_pertahun_shu_sp  = round(( $hasil_angka_hasil_pertahun_shu_sp / $final_jumlah_jasa_pinjaman_all ) * 100 );
 		$final_shu_orang = ceil(( $presentase_hasil_angka_hasil_pertahun_shu_sp * $res_jasa  ) / 100) ;
 
@@ -153,7 +156,10 @@ class DashboardController extends Controller
 			"));
 
 		// presentase laba toko 25% dari total laba toko, sp, cad
-		$presentase_laba_toko = ceil($angka_hasil_pertahun * (30 / 100) ); // = N4
+		$presentase_laba_toko = ( $angka_hasil_pertahun * (30 / 100));
+		// ($angka_hasil_pertahun * (30 / 100) ); // = N4
+
+		// dd($presentase_laba_toko);
 
 		// mencari presentase untuk laba toko  
 		$laba_toko_pertahun_semua_anggota = DB::select(DB::raw("SELECT sum(hargajual - hargastok) as labatoko from penjualan a 
@@ -166,14 +172,34 @@ class DashboardController extends Controller
 		$result_laba_toko_pertahun_semua_anggota = $laba_toko_pertahun_semua_anggota[0]->labatoko;
 
 		// prsentase laba toko 30%
-		$hasil = ($result_laba_toko_pertahun_semua_anggota / $presentase_laba_toko ) * 100;
+		// n5
+		if ($presentase_laba_toko < $result_laba_toko_pertahun_semua_anggota  ) {
+			// $presentase_laba_toko = 0; 
+			$hasil = ($presentase_laba_toko / $result_laba_toko_pertahun_semua_anggota ) * 100;
+		} else {
+			$hasil = ($result_laba_toko_pertahun_semua_anggota / $presentase_laba_toko) * 100;
+		}
+		// $hasil = ($result_laba_toko_pertahun_semua_anggota / $presentase_laba_toko ) * 100;
 
 		$hasil_presentase_laba_toko = round($hasil,2);
+
+
 
 		// laba toko dari anggota ini 
 		$data['laba_toko_per_orang'] = @$d['laba_toko_per_orang'][0]->labatoko;
 		// nilai shu perorang
 		$data['final_laba_toko_per_orang'] = number_format(ceil(($hasil_presentase_laba_toko * $data['laba_toko_per_orang'] ) / 100));
+
+
+		// number_format(ceil(($hasil_presentase_shu_modal * $total_modal_usaha ) / 100));
+
+		// dd([
+		// 	'presentase_laba_toko N4' => $presentase_laba_toko, 
+		// 	'hasil N5' => $hasil, 
+		// 	'final_laba_toko_per_orang' => $data['final_laba_toko_per_orang'] , 
+		// 	'result_laba_toko_pertahun_semua_anggota' => $result_laba_toko_pertahun_semua_anggota
+		// 	// 'hasil_presentase_laba_toko' => $hasil_presentase_laba_toko
+		// ]);
 
 		// echo 'presentase' . $hasil_presentase_laba_toko;
 		// echo '    laba ' . $data['laba_toko_per_orang'];
@@ -238,8 +264,10 @@ class DashboardController extends Controller
 		// shu modal
 
 		// presentase shu modal
+		// 61410536
 		$presentase_shu_modal = (61410536 / $total) * 100; // angka yang perlu ditanyakan;
 		$hasil_presentase_shu_modal = round($presentase_shu_modal,2);
+		// dd($hasil_presentase_shu_modal);
 
 		$data['final_hasil_presentase_shu_modal'] = number_format(ceil(($hasil_presentase_shu_modal * $total_modal_usaha ) / 100));
 
@@ -261,6 +289,8 @@ class DashboardController extends Controller
 		// if (sizeof($value)>0) {
 		// 	return redirect('dashboard');
 		// } else {
+
+		// dd($data);
 		return view('pengurus_dashboard',with($data));
 		// }
 	}
