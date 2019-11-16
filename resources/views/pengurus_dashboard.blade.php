@@ -59,8 +59,21 @@
 													<tr>
 
 														<td scope="row">{{ date('d F Y',strtotime($d->tanggal)) }}</td>
-														<td>Rp. {{ number_format($d->bayar - $d->kembalian) }}</td>
-														<td>{{ $d->tempo}} Hari</td>
+														<td>
+															@if($d->tempo > 0)
+
+															<!-- {{ $d->id }} -->
+															Rp. {!! number_format(\App\Http\Helpers\Helper::getDetailPenjualan($d->id)) !!}
+															
+															@else 
+															Rp. {{ number_format($d->bayar - $d->kembalian) }}
+															@endif
+
+															</td>
+														<td>
+															
+															{{ $d->tempo}} Hari
+														</td>
 														<td>
 
 															<!-- jika transaksi dilakukan di atas tanggal 20 -->

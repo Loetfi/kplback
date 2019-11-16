@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Helpers\Api;
 use App\Http\Helpers\RestCurl;
+use App\Http\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -53,6 +54,9 @@ class DashboardController extends Controller
 		return view('dashboard')->with($data);
 	}
 	public function index(Request $request){
+		// $res =  Helper::getDetailPenjualan('20190719-160932');
+		// dd($res[0]->totalbelanja);
+		// die;
 		$date_jasa = date('Y')-1;
 		$date_jasa_dua = date('Y')-2;
 		$date = date('Y');
