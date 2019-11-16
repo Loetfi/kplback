@@ -109,6 +109,10 @@
 
 
 															@endif
+
+															@if($d->tempo <= 0)
+															Cash
+															@endif 
 															
 															<!-- @if( date("Y-m-d",strtotime("+2 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) >= date("Y-m-01") and $d->tempo > 0 )
 
