@@ -86,16 +86,16 @@ Route::group(['middleware' => ['checksessionlogin']], function () {
 
         Route::get('/', function () {
             $data = array(
-            'title' => 'Serba Usaha', 
-            'kategori' => 
-                 [['id' => 15, 'nama' => 'Meeting Room'],
-                 ['id' => 16, 'nama' => 'Talkshow'],
-                 ['id' => 17, 'nama' => 'Seminar'],
-                 ['id' => 18, 'nama' => 'Event'],
-                 ['id' => 19, 'nama' => 'Pameran'],
-                 ['id' => 20, 'nama' => 'Class Room'],
-                 ['id' => 21, 'nama' => 'Wedding Venue']]
-        );
+                'title' => 'Serba Usaha', 
+                'kategori' => 
+                [['id' => 15, 'nama' => 'Meeting Room'],
+                ['id' => 16, 'nama' => 'Talkshow'],
+                ['id' => 17, 'nama' => 'Seminar'],
+                ['id' => 18, 'nama' => 'Event'],
+                ['id' => 19, 'nama' => 'Pameran'],
+                ['id' => 20, 'nama' => 'Class Room'],
+                ['id' => 21, 'nama' => 'Wedding Venue']]
+            );
             return view('gedungtekno/listgedungtekno')->with($data);
         })->name('gedungtekno');
 
@@ -167,13 +167,25 @@ Route::group(['middleware' => ['checksessionlogin']], function () {
 
     });
 
+
+
     
     // travel
-        Route::get('/travel','TravelController@index')->name('travel');
+    Route::get('/travel','TravelController@index')->name('travel');
+
+    Route::group(['prefix' => 'konfigurasi'], function () {
+        // pinjaman
+        Route::get('/angka-pertahun','KonfigurasiController@index')->name('konfigurasi');
+        Route::post('/update','KonfigurasiController@update');
     });
 
-    Route::get('pengurus/dashboard/','DashboardController@index');
-    
+});
+
+Route::get('pengurus/dashboard/','DashboardController@index');
+
+
+
+
 
 // Route::get('/', function () {
 //     return view('auth/login');
@@ -193,7 +205,7 @@ Route::group(['middleware' => ['checksessionlogin']], function () {
 
 // promo
 // Route::get('/promo', function () {
-    
+
 // })->name('promo');
 
 // Route::get('/toko', function () {

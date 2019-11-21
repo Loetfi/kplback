@@ -26,7 +26,8 @@ class DashboardController extends Controller
 
 		// sumber pendapatan
 
-		$sumber = DB::select(DB::raw("SELECT * from apps_kolektif_data "));
+		$tahun_shu = 2018;
+		$sumber = DB::select(DB::raw("SELECT * from apps_kolektif_data where tahun = $tahun_shu "));
 
 		$laba_toko = DB::select(DB::raw("SELECT sum(hargajual - hargastok) as labatoko from penjualan a 
 			inner join penjualandetail b on a.id = b.id
@@ -61,10 +62,12 @@ class DashboardController extends Controller
 		$date_jasa_dua = date('Y')-2;
 		$date = date('Y');
 		$simpananasli = [];
+		$tahun_shu = 2019;
+		$sumber = DB::select(DB::raw("SELECT * from apps_kolektif_data where tahun = $tahun_shu "));
 
 		// angka static dari jasa 25 % seharusnya 
 		// N3
-		$angka_hasil_pertahun = 76763170;
+		$angka_hasil_pertahun = $sumber[0]->shu_toko_sp;
 		// 76763170
 
 		
@@ -152,18 +155,7 @@ class DashboardController extends Controller
 		// 	where pelangganid = '".$request->anggotaid."'
 		// 	group by year(tanggal) = '$date' "));
 
-		$d['laba_toko_per_orang'] = DB::select(DB::raw("SELECT sum(hargajual - hargastok) as labatoko from penjualan a 
-			inner join penjualandetail b on a.id = b.id
-			left join barang c on c.id  = b.barangid
-			where pelangganid = '".$request->anggotaid."' and year(a.tanggal) = '".$date."'
-			group by year(a.tanggal) = '".$date."' 
-			"));
 
-		// presentase laba toko 25% dari total laba toko, sp, cad
-		$presentase_laba_toko = ( $angka_hasil_pertahun * (30 / 100));
-		// ($angka_hasil_pertahun * (30 / 100) ); // = N4
-
-		// dd($presentase_laba_toko);
 
 		// mencari presentase untuk laba toko  
 		$laba_toko_pertahun_semua_anggota = DB::select(DB::raw("SELECT sum(hargajual - hargastok) as labatoko from penjualan a 
@@ -174,6 +166,21 @@ class DashboardController extends Controller
 		// echo $laba_toko_pertahun_semua_anggota;
 		// dd($laba_toko_pertahun_semua_anggota);
 		$result_laba_toko_pertahun_semua_anggota = $laba_toko_pertahun_semua_anggota[0]->labatoko;
+
+
+		$d['laba_toko_per_orang'] = DB::select(DB::raw("SELECT sum(hargajual - hargastok) as labatoko from penjualan a 
+			inner join penjualandetail b on a.id = b.id
+			left join barang c on c.id  = b.barangid
+			where pelangganid = '".$request->anggotaid."' and year(a.tanggal) = '".$date."'
+			group by year(a.tanggal) = '".$date."' 
+			"));
+
+		// dd($angka_hasil_pertahun);
+		// presentase laba toko 25% dari total laba toko, sp, cad
+		$presentase_laba_toko = ( $angka_hasil_pertahun * 30 / 100);
+		// ($angka_hasil_pertahun * (30 / 100) ); // = N4
+
+		// dd($presentase_laba_toko);
 
 		// prsentase laba toko 30%
 		// n5
@@ -187,10 +194,13 @@ class DashboardController extends Controller
 
 		$hasil_presentase_laba_toko = round($hasil,2);
 
+		// dd($hasil_presentase_laba_toko);
+
 
 
 		// laba toko dari anggota ini 
 		$data['laba_toko_per_orang'] = @$d['laba_toko_per_orang'][0]->labatoko;
+		// dd($data['laba_toko_per_orang']);
 		// nilai shu perorang
 		$data['final_laba_toko_per_orang'] = number_format(ceil(($hasil_presentase_laba_toko * $data['laba_toko_per_orang'] ) / 100));
 
@@ -269,7 +279,7 @@ class DashboardController extends Controller
 
 		// presentase shu modal
 		// 61410536
-		$presentase_shu_modal = (61410536 / $total) * 100; // angka yang perlu ditanyakan;
+		$presentase_shu_modal = ($sumber[0]->shu_modal / $total) * 100; // angka yang perlu ditanyakan;
 		$hasil_presentase_shu_modal = round($presentase_shu_modal,2);
 		// dd($hasil_presentase_shu_modal);
 

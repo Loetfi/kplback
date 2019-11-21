@@ -1,6 +1,6 @@
  <!-- Sidebar -->
  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-    
+
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('dashboard') }}">
         <div class="sidebar-brand-icon">
@@ -23,7 +23,7 @@
         <hr class="sidebar-divider">
 
         
-       
+
         
         <!-- Heading -->
         
@@ -35,7 +35,7 @@
             </a>
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    
+
                     <a class="collapse-item @if (Request::segment(1) === 'promo' ) navigation__active @endif" href="{{ route('promo') }}"><i class="fas fa-fw fa-percent"></i> Promo</a>
                 </div>
             </div>
@@ -52,7 +52,7 @@
             </a>
             <div id="collapseOrder" class="collapse" aria-labelledby="headingUtilities" data-parent="#collapseOrder">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    
+
                     <a class="collapse-item @if (Request::segment(1) === 'toko' ) navigation__active @endif" href="{{ route('toko') }}"><i class="fas fa-fw fa-store"></i> Toko</a>
                     <a class="collapse-item @if (Request::segment(1) === 'travel' ) navigation__active @endif" href="{{ route('travel') }}"><i class="fas fa-fw fa-ticket-alt"></i> Tiketing</a>
                     <a class="collapse-item @if (Request::segment(1) === 'topup' ) navigation__active @endif" href="{{ route('topup') }}"><i class="fas fa-fw fa-mobile"></i> Top Up</a>
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </li>
-         
+
         
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
@@ -80,33 +80,45 @@
         </li>
 
         <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-chart-bar"></i>
-                    <span>Dashboard Apps</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#collapsePages">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item @if (Request::segment(1) === 'toko' ) navigation__active @endif" href="{{ route('toko') }}"><i class="fas fa-fw fa-chart-bar"></i> Dashbooard</a>
-                    </div>
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-chart-bar"></i>
+                <span>Dashboard Apps</span>
+            </a>
+            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#collapsePages">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item @if (Request::segment(1) === 'toko' ) navigation__active @endif" href="{{ route('toko') }}"><i class="fas fa-fw fa-chart-bar"></i> Dashbooard</a>
                 </div>
-            </li>
+            </div>
+        </li>
+
+         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#konfigurasi" aria-expanded="true" aria-controls="konfigurasi">
+                <i class="fas fa-fw fa-chart-bar"></i>
+                <span>Konfigurasi</span>
+            </a>
+            <div id="konfigurasi" class="collapse" aria-labelledby="headingPages" data-parent="#konfigurasi">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item @if (Request::segment(1) === 'konfigurasi' ) navigation__active @endif" href="{{ route('konfigurasi') }}"><i class="fas fa-fw fa-chart-bar"></i> Angka Hasil Pertahun</a>
+                </div>
+            </div>
+        </li>
 
 
         {{-- <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                     
-                </div>
-            </li> --}}
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Pages</span>
+            </a>
+            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+
+            </div>
+        </li> --}}
 
         
         
         
         <!-- Nav Item - Pages Collapse Menu -->
-      
+
         
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
