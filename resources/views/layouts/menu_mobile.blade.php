@@ -29,21 +29,21 @@
         
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ url('dashboard_mobile/anggota') }} " data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+            <a class="nav-link collapsed" href="{{ url('dashboard_mobile/anggota') }} ">
                 <i class="fas fa-fw fa-user"></i>
                 <span>Anggota</span>
             </a>
         </li>
         
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrder" aria-expanded="true" aria-controls="collapseOrder">
+            <a class="nav-link collapsed" href="{{ url('dashboard_mobile/cashflow_toko') }} ">
                 <i class="fas fa-fw fa-store"></i>
                 <span>Cashflow Toko</span>
             </a> 
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrder" aria-expanded="true" aria-controls="collapseOrder">
+            <a class="nav-link collapsed" href="{{ url('dashboard_mobile/cashflow_simpin') }} ">
                 <i class="fas fa-fw fa-money-check-alt"></i>
                 <span>Cashflow Simpan Pinjam</span>
             </a> 
