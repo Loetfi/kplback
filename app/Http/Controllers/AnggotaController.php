@@ -39,11 +39,11 @@ class AnggotaController extends Controller
 		if ($tipe == 'aktif') {
 			$anggota = DB::select(DB::raw("SELECT * from anggota where ( noanggota not like '%P.%' and noanggota not like '%P2.%' and  noanggota not like '%ALB.%')"));
 		} elseif($tipe == 'pasif'){
-			$anggota = DB::select(DB::raw("SELECT count(id) as total from anggota where noanggota like '%P.%'"));
+			$anggota = DB::select(DB::raw("SELECT * from anggota where noanggota like '%P.%'"));
 		} elseif($tipe == 'pegawai'){
-			$anggota = DB::select(DB::raw("SELECT count(id) as total from anggota where noanggota like '%P2.%'"));
+			$anggota = DB::select(DB::raw("SELECT * from anggota where noanggota like '%P2.%'"));
 		} elseif($tipe == 'luarbiasa'){
-			$anggota = DB::select(DB::raw("SELECT count(id) as total from anggota where noanggota like '%ALB.%' "));
+			$anggota = DB::select(DB::raw("SELECT * from anggota where noanggota like '%ALB.%' "));
 		} else {
 			$anggota = [];
 		}
