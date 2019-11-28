@@ -48,6 +48,8 @@ Route::group(['middleware' => ['checksessionlogin']], function () {
 
     
     Route::get('dashboard','DashboardController@web');
+
+
     Route::get('/pesawat', function () {
         return view('travel/pesawat');
     })->name('pesawat');
@@ -181,7 +183,8 @@ Route::group(['middleware' => ['checksessionlogin']], function () {
 
 });
 
-Route::get('pengurus/dashboard/','DashboardController@index');
+Route::get('pengurus/dashboard/','DashboardController@index')->name('search');
+Route::get('dashboard_mobile','DashboardController@mobile');
 
 
 

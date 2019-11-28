@@ -54,6 +54,48 @@ class DashboardController extends Controller
 
 		return view('dashboard')->with($data);
 	}
+
+	function mobile(){
+		// get anggota P
+
+		$date = date('Y');
+
+		$anggota_p = DB::select(DB::raw("SELECT count(id) as total from anggota where noanggota like '%P.%'"));
+
+		$anggota_p2 = DB::select(DB::raw("SELECT count(id) as total from anggota where noanggota like '%P2.%'"));
+
+		$anggota_aktif = DB::select(DB::raw("SELECT count(id) as total from anggota where ( noanggota not like '%P.%' and noanggota not like '%P2.%' )"));
+
+		// sumber pendapatan
+
+		$tahun_shu = 2018;
+		$sumber = DB::select(DB::raw("SELECT * from apps_kolektif_data where tahun = $tahun_shu "));
+
+		$laba_toko = DB::select(DB::raw("SELECT sum(hargajual - hargastok) as labatoko from penjualan a 
+			inner join penjualandetail b on a.id = b.id
+			left join barang c on c.id  = b.barangid
+			where  year(tanggal) = '$date' 
+			and a.pelangganid not in (SELECT id as total from anggota where (noanggota not like 'P2.%' )) "));
+
+		$laba_toko_all = DB::select(DB::raw("SELECT sum(hargajual - hargastok) as labatoko from penjualan a 
+			inner join penjualandetail b on a.id = b.id
+			left join barang c on c.id  = b.barangid
+			where  year(tanggal) = '$date'"));
+		// dd($sumber);
+
+		$data = array(
+			'title' => 'Dashboard',
+			'anggota_p' => $anggota_p[0]->total,
+			'anggota_p2' => $anggota_p2[0]->total,
+			'anggota_aktif' => $anggota_aktif[0]->total,
+			'jasa_pinjam' => $sumber[0]->total_jasa_pinjaman,
+			'jasa_sp' => $sumber[0]->total_simpanan_pokok,
+			'laba_toko' => $laba_toko[0]->labatoko,
+			'laba_toko_all'	=> $laba_toko_all[0]->labatoko
+		);
+
+		return view('dashboard')->with($data);
+	}
 	public function index(Request $request){
 		// $res =  Helper::getDetailPenjualan('20190719-160932');
 		// dd($res[0]->totalbelanja);
