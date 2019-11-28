@@ -13,10 +13,25 @@ use DB;
 
 class AnggotaController extends Controller
 { 
-	// public function FunctionName($value='')
-	// {
-	// 	# code...
-	// }
+	function index(){
+		$anggota_p = DB::select(DB::raw("SELECT count(id) as total from anggota where noanggota like '%P.%'"));
+
+		$anggota_p2 = DB::select(DB::raw("SELECT count(id) as total from anggota where noanggota like '%P2.%'"));
+
+		$anggota_aktif = DB::select(DB::raw("SELECT count(id) as total from anggota where ( noanggota not like '%P.%' and noanggota not like '%P2.%' and noanggota not like '%ALB.%'  )"));
+
+		$anggota_luar_biasa = DB::select(DB::raw("SELECT count(id) as total from anggota where noanggota like '%ALB.%' "));
+
+		$data = array(
+			'title' => 'Dashboard Anggota',
+			'anggota_p' => $anggota_p[0]->total,
+			'anggota_p2' => $anggota_p2[0]->total,
+			'anggota_aktif' => $anggota_aktif[0]->total,
+			'anggota_luar_biasa'	=> $anggota_luar_biasa[0]->total
+		);
+
+		return view('dashboard_mobile/dash_anggota')->with($data);
+	}
 
 	function list($tipe = null){
 		$date = date('Y');

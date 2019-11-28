@@ -14,7 +14,7 @@
     
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="{{ url('dashboard') }}">
+        <a class="nav-link" href="{{ url('dashboard_mobile') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard Mobile</span></a>
         </li>
@@ -29,7 +29,7 @@
         
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+            <a class="nav-link collapsed" href="{{ url('dashboard_mobile/anggota') }} " data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                 <i class="fas fa-fw fa-user"></i>
                 <span>Anggota</span>
             </a>
