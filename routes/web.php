@@ -190,6 +190,8 @@ Route::get('dashboard_mobile','DashboardController@mobile');
 Route::get('dashboard_mobile/anggota/list/{tipe}','AnggotaController@list');
 Route::get('dashboard_mobile/anggota/detail/{noanggota}','AnggotaController@detail');
 Route::get('dashboard_mobile/anggota','AnggotaController@index');
+// cashflow toko 
+Route::get('dashboard_mobile/cashflow_toko','CashTokoController@index');
 
 
 

@@ -27,6 +27,17 @@ class Helper {
 	    return $year_diff;
 	}
 
+	public static function getNamaBarang($id = '') {
+	  try {
+			$res =  DB::select(DB::raw("SELECT nama from barang where id = '$id'"));
+
+			return $res[0]->nama;
+
+		} catch (\Exception $e) {
+			return '0';
+		}
+	}
+
 }
 
 /* End of file Helper.php */
