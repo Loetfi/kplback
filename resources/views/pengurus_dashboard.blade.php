@@ -22,7 +22,7 @@
 				<!-- Card Body -->
 				<div class="card-body">
 					<div class="alert alert-default" role="alert">
-						<h4 class="alert-heading">Hai , {{ $anggota->nama }}</h4>
+						<h4 class="alert-heading">Hai, {{ $anggota->nama }}</h4>
 					</div>
 					<div class="alert alert-primary">
 						<strong>SHU Modal: Rp. {{ $final_hasil_presentase_shu_modal }}</strong>

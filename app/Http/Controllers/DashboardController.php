@@ -22,7 +22,8 @@ class DashboardController extends Controller
 
 		$anggota_p2 = DB::select(DB::raw("SELECT count(id) as total from anggota where noanggota like '%P2.%'"));
 
-		$anggota_aktif = DB::select(DB::raw("SELECT count(id) as total from anggota where ( noanggota not like '%P.%' and noanggota not like '%P2.%' )"));
+		$anggota_aktif = DB::select(DB::raw("SELECT count(id) as total from anggota where ( noanggota not like '%P.%' and noanggota not like '%P2.%' and noanggota not like '%ALB.%' )"));
+		$anggota_luar_biasa = DB::select(DB::raw("SELECT count(id) as total from anggota where noanggota like '%ALB.%' "));
 
 		// sumber pendapatan
 
@@ -46,6 +47,7 @@ class DashboardController extends Controller
 			'anggota_p' => $anggota_p[0]->total,
 			'anggota_p2' => $anggota_p2[0]->total,
 			'anggota_aktif' => $anggota_aktif[0]->total,
+			'anggota_luar_biasa'	=> $anggota_luar_biasa[0]->total,
 			'jasa_pinjam' => $sumber[0]->total_jasa_pinjaman,
 			'jasa_sp' => $sumber[0]->total_simpanan_pokok,
 			'laba_toko' => $laba_toko[0]->labatoko,
@@ -64,11 +66,13 @@ class DashboardController extends Controller
 
 		$anggota_p2 = DB::select(DB::raw("SELECT count(id) as total from anggota where noanggota like '%P2.%'"));
 
-		$anggota_aktif = DB::select(DB::raw("SELECT count(id) as total from anggota where ( noanggota not like '%P.%' and noanggota not like '%P2.%' )"));
+		$anggota_aktif = DB::select(DB::raw("SELECT count(id) as total from anggota where ( noanggota not like '%P.%' and noanggota not like '%P2.%' and noanggota not like '%ALB.%'  )"));
+
+		$anggota_luar_biasa = DB::select(DB::raw("SELECT count(id) as total from anggota where noanggota like '%ALB.%' "));
 
 		// sumber pendapatan
 
-		$tahun_shu = 2018;
+		$tahun_shu = 2019;
 		$sumber = DB::select(DB::raw("SELECT * from apps_kolektif_data where tahun = $tahun_shu "));
 
 		$laba_toko = DB::select(DB::raw("SELECT sum(hargajual - hargastok) as labatoko from penjualan a 
@@ -88,13 +92,14 @@ class DashboardController extends Controller
 			'anggota_p' => $anggota_p[0]->total,
 			'anggota_p2' => $anggota_p2[0]->total,
 			'anggota_aktif' => $anggota_aktif[0]->total,
+			'anggota_luar_biasa'	=> $anggota_luar_biasa[0]->total,
 			'jasa_pinjam' => $sumber[0]->total_jasa_pinjaman,
 			'jasa_sp' => $sumber[0]->total_simpanan_pokok,
 			'laba_toko' => $laba_toko[0]->labatoko,
 			'laba_toko_all'	=> $laba_toko_all[0]->labatoko
 		);
 
-		return view('dashboard')->with($data);
+		return view('dashboard_mobile')->with($data);
 	}
 	public function index(Request $request){
 		// $res =  Helper::getDetailPenjualan('20190719-160932');
