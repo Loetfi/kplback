@@ -49,10 +49,16 @@
                         <tr>
                             <td><a href="{{ url('dashboard_mobile/anggota/detail/'.$d->id) }}"> {{ $d->noanggota}} </a></td>
                             <td>{{ $d->nama }}</td>
-                            <td>@if($d->gender) Pria @else Wanita @endif</td>
+                            <td>@if($d->gender == 1) Pria @else Wanita @endif</td>
                             <td> {{ $tgllahir = number_format(\App\Http\Helpers\Helper::hitungUmur($d->tgllahir)) }} </td>
                             <td>{{ $d->tgllahir }}</td>
-                            <td>{{ 58 - $tgllahir }} </td>
+                            <td>
+                              @if((58 - $tgllahir) >= 0)    
+                              <a href="" class="btn btn-success btn-xs disabled"> {{ 58 - $tgllahir }}</a>
+                              @else
+                              <a href="" class="btn btn-danger btn-xs disabled"> {{ 58 - $tgllahir }}</a>
+                              @endif
+                             </td>
                             <td>@if($d->aktif) Aktif  @else Belum Aktif @endif </td>
 
                         </tr> 
