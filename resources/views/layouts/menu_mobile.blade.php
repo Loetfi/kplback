@@ -45,7 +45,14 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ url('dashboard_mobile/cashflow_simpin') }} ">
                 <i class="fas fa-fw fa-money-check-alt"></i>
-                <span>Cashflow Simpan Pinjam</span>
+                <span>Cashflow Simpanan</span>
+            </a> 
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ url('dashboard_mobile/cashflow_simpin') }} ">
+                <i class="fas fa-fw fa-money-check-alt"></i>
+                <span>Cashflow Pinjaman</span>
             </a> 
         </li>
  

@@ -192,6 +192,8 @@ Route::get('dashboard_mobile/anggota/detail/{noanggota}','AnggotaController@deta
 Route::get('dashboard_mobile/anggota','AnggotaController@index');
 // cashflow toko 
 Route::get('dashboard_mobile/cashflow_toko','CashTokoController@index');
+// cashflow simpan pinjam
+Route::get('dashboard_mobile/cashflow_simpin','CashSPController@index');
 
 
 

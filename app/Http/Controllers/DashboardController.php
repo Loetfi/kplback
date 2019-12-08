@@ -72,7 +72,7 @@ class DashboardController extends Controller
 
 		// sumber pendapatan
 
-		$tahun_shu = 2019;
+		$tahun_shu = date('Y');
 		$sumber = DB::select(DB::raw("SELECT * from apps_kolektif_data where tahun = $tahun_shu "));
 
 		$laba_toko = DB::select(DB::raw("SELECT sum(hargajual - hargastok) as labatoko from penjualan a 
@@ -101,10 +101,10 @@ class DashboardController extends Controller
 
 		return view('dashboard_mobile')->with($data);
 	}
+
+
 	public function index(Request $request){
-		// $res =  Helper::getDetailPenjualan('20190719-160932');
-		// dd($res[0]->totalbelanja);
-		// die;
+		
 		$date_jasa = date('Y')-1;
 		$date_jasa_dua = date('Y')-2;
 		$date = date('Y');
