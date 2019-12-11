@@ -194,6 +194,13 @@ Route::get('dashboard_mobile/anggota','AnggotaController@index');
 Route::get('dashboard_mobile/cashflow_toko','CashTokoController@index');
 // cashflow simpan pinjam
 Route::get('dashboard_mobile/cashflow_simpin','CashSPController@index');
+Route::get('dashboard_mobile/cashflow_simpin/detail/{id_jenis}','CashSPController@detailPinjamanbyName');
+Route::get('dashboard_mobile/cashflow_simpin/status/{id_jenis}/{lunas}','CashSPController@detailByStatus');
+// cashflow simpan
+Route::get('dashboard_mobile/cashflow_simpanan','CashSimpanController@index');
+
+
+
 
 
 

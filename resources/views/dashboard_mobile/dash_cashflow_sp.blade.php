@@ -116,7 +116,7 @@ var myPieChart = new Chart(ctx, {
             </tr>
             @foreach($pinjaman_by_nama as $pbn)
             <tr>
-              <td> <a href=" {{ url('#') }} ">{{ $pbn->namapinjaman }}</a> </td>
+              <td> <a href=" {{ url('dashboard_mobile/cashflow_simpin/detail/'.$pbn->jenisid) }} ">{{ $pbn->namapinjaman }}</a> </td>
               <td> Rp. {{ number_format($pbn->jumlahplafon , 2 , ',' ,'.') }} </td>
             </tr>
             @endforeach
@@ -132,7 +132,7 @@ var myPieChart = new Chart(ctx, {
       <div class="card shadow mb-4">
         <!-- Card Header - Dropdown -->
         <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">Pinjaman Jenis {{ $aj->nama }}</h6>
+          <h6 class="m-0 font-weight-bold text-primary">JENIS {{ $aj->nama }}</h6>
         </div>
         <!-- Card Body -->
         <div class="card-body">
@@ -146,8 +146,8 @@ var myPieChart = new Chart(ctx, {
               <td>Belum</td>
             </tr>
             <tr>
-              <td><a href="#"> {{ $lunasbelum_by_jenis[$i][0]->lunas }} </a></td> 
-              <td><a href="#"> {{ $lunasbelum_by_jenis[$i][0]->belumlunas }} </a></td>
+              <td><a href="{{ url('dashboard_mobile/cashflow_simpin/status/'.$aj->id.'/lunas') }}"> {{ $lunasbelum_by_jenis[$i][0]->lunas }} </a></td> 
+              <td><a href="{{ url('dashboard_mobile/cashflow_simpin/status/'.$aj->id.'/belum') }}"> {{ $lunasbelum_by_jenis[$i][0]->belumlunas }} </a></td>
             </tr>
           </table>
 
