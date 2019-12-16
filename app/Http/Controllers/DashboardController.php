@@ -115,6 +115,12 @@ class DashboardController extends Controller
 		// angka static dari jasa 25 % seharusnya 
 		// N3
 		$angka_hasil_pertahun = $sumber[0]->shu_toko_sp;
+		$data['anggota'] = DB::table('anggota')->where('id',$request->anggotaid)->get()->first(); 
+		if ($data['anggota']->pengurus == 1) {
+			$data['full_access'] = true;
+		} else {
+			$data['full_access'] = false;
+		}
 		// 76763170
 
 		
@@ -188,7 +194,7 @@ class DashboardController extends Controller
 		// dd($data);
 		
 
-		$data['anggota'] = DB::table('anggota')->where('id',$request->anggotaid)->get()->first(); 
+		
 
 		$data['pinjaman'] = DB::select(DB::raw("SELECT d.nama as namakantor, b.nama as namapinjaman, c.nama as namajaminan,   a.* from pinjaman a 
 			inner join pinjjenis b on a.jenisid = b.id

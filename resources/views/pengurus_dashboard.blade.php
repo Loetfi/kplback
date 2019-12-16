@@ -24,6 +24,9 @@
 					<div class="alert alert-default" role="alert">
 						<h4 class="alert-heading">Hai, {{ $anggota->nama }}</h4>
 					</div>
+					<div class="alert alert-blank">
+						<strong><a href="{{ url('dashboard_mobile') }} ">Masuk Dashboard Pengurus > </a></strong>
+					</div>
 					<div class="alert alert-primary">
 						<strong>SHU Modal: Rp. {{ $final_hasil_presentase_shu_modal }}</strong>
 						<p>Total modal keseluruhan dari simpanan wajib dan pokok</p>
