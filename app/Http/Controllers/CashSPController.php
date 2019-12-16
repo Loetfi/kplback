@@ -188,7 +188,7 @@ class CashSPController extends Controller
 
 		// $data['simpanan'] = $simpananasli;
 
-		dd($simpananasli)
+		// dd($simpananasli)
 
 		$data = array(
 			'title' => 'Dashboard',

@@ -23,9 +23,9 @@ class CashSimpanController extends Controller
 		// sumber pendapatan
 
 		$tahun_shu = date('Y');
-		// $sumber = DB::select(DB::raw("SELECT * from apps_kolektif_data where tahun = $tahun_shu "));
+		$sumber = DB::select(DB::raw("SELECT * from apps_kolektif_data where tahun = $tahun_shu "));
 
-		// $name_jenis = DB::select(DB::raw("SELECT id, nama from pinjjenis where id = '$id_jenis' "));
+		$name_jenis = DB::select(DB::raw("SELECT id, nama from pinjjenis"));
 
 		// $by_lunas = DB::select(DB::raw("SELECT  
 		// 	a.*,
@@ -54,15 +54,15 @@ class CashSimpanController extends Controller
 			'title' => 'Dashboard',
 			'total_simpanan_wajib' => 2621840600,
 			'total_simpanan_pokok' => 21235000,
-			'total_simpanan_sukarela' => 248266500
-			// 'name_jenis' => $name_jenis ?? null,
+			'total_simpanan_sukarela' => 248266500,
+			'name_jenis' => $name_jenis ?? null,
 			// 'by_lunas' => $by_lunas,
-			// 'tahun_shu' => $tahun_shu,
+			'tahun_shu' => $tahun_shu,
 			// 'status' => strtoupper($lunas)
 		);
 
-		dd($data);
-		// return view('dashboard_mobile/status_pinjaman')->with($data);
+		// dd($data);
+		return view('dashboard_mobile/dash_cashflow_simpan')->with($data);
 
 		
 	}

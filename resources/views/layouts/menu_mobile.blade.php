@@ -43,7 +43,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ url('dashboard_mobile/cashflow_simpin') }} ">
+            <a class="nav-link collapsed" href="{{ url('dashboard_mobile/cashflow_simpanan') }} ">
                 <i class="fas fa-fw fa-money-check-alt"></i>
                 <span>Cashflow Simpanan</span>
             </a> 
