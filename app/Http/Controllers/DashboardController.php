@@ -58,9 +58,9 @@ class DashboardController extends Controller
 	}
 
 	function mobile(){
-		// get anggota P
-
 		$date = date('Y');
+		$tanggal = date('d')-7;
+		$tanggal = date('Y-m-'.$tanggal);
 
 		$anggota_p = DB::select(DB::raw("SELECT count(id) as total from anggota where noanggota like '%P.%'"));
 
@@ -87,6 +87,8 @@ class DashboardController extends Controller
 			where  year(tanggal) = '$date'"));
 		// dd($sumber);
 
+		$penjualan_toko = DB::select(DB::raw("SELECT tanggal, sum(bayar-kembalian) as belanja from penjualan where tanggal >= '$tanggal' group by tanggal"));
+
 		$data = array(
 			'title' => 'Dashboard',
 			'anggota_p' => $anggota_p[0]->total,
@@ -96,7 +98,8 @@ class DashboardController extends Controller
 			'jasa_pinjam' => $sumber[0]->total_jasa_pinjaman,
 			'jasa_sp' => $sumber[0]->total_simpanan_pokok,
 			'laba_toko' => $laba_toko[0]->labatoko,
-			'laba_toko_all'	=> $laba_toko_all[0]->labatoko
+			'laba_toko_all'	=> $laba_toko_all[0]->labatoko,
+			'penjualan_toko' => $penjualan_toko
 		);
 
 		return view('dashboard_mobile')->with($data);
@@ -157,7 +160,7 @@ class DashboardController extends Controller
 
 		// jasa perorangannya :
 		$cari_jasa_pinjaman = DB::select(DB::raw("SELECT a.plafon, f.jasa
-				from pinjaman a 
+			from pinjaman a 
 			inner join pinjjenis b on a.jenisid = b.id
 			inner join apps_jasa_pinjaman f on b.kode = f.kode
 			where anggotaid = '".$request->anggotaid."'  and  year(a.tanggal) in ( $date_jasa, $date_jasa_dua )
@@ -281,17 +284,17 @@ class DashboardController extends Controller
 		foreach ($simpanan_pokok as $simpanan) {
 			// echo $simpanan->norekening;
 			$cari_simpanan_tabungan = DB::select(DB::raw("SELECT saldo from accjurnal a 
-			left join accjurnaldetail b on a.id = b.id
-			left join tabtransaksi c on a.id = c.jurnalid
-			where a.keterangan like '%".$simpanan->norekening."%' order by a.tanggal desc 
-			limit 1  "));
+				left join accjurnaldetail b on a.id = b.id
+				left join tabtransaksi c on a.id = c.jurnalid
+				where a.keterangan like '%".$simpanan->norekening."%' order by a.tanggal desc 
+				limit 1  "));
 
-					$ddd['simpanan'] = [
-						'simpanan' => $simpanan->nama , 
-						'saldo' => !empty($cari_simpanan_tabungan[0]->saldo) ? number_format($cari_simpanan_tabungan[0]->saldo) : 0,
-						'saldo_real' => !empty($cari_simpanan_tabungan[0]->saldo) ? $cari_simpanan_tabungan[0]->saldo : 0,
-					];
-					$simpananasli[] = $ddd['simpanan'];
+			$ddd['simpanan'] = [
+				'simpanan' => $simpanan->nama , 
+				'saldo' => !empty($cari_simpanan_tabungan[0]->saldo) ? number_format($cari_simpanan_tabungan[0]->saldo) : 0,
+				'saldo_real' => !empty($cari_simpanan_tabungan[0]->saldo) ? $cari_simpanan_tabungan[0]->saldo : 0,
+			];
+			$simpananasli[] = $ddd['simpanan'];
 		}
 
 		$data['simpanan'] = $simpananasli;
@@ -348,6 +351,9 @@ class DashboardController extends Controller
 		if($data['anggota']->pengurus == 1){
 			// echo " Pengurus ";
 		}
+
+
+
 
 
 		// $results = DB::select( DB::raw("SELECT * FROM some_table WHERE some_col = '$someVariable'") );
