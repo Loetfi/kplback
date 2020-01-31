@@ -59,6 +59,7 @@ class AnggotaController extends Controller
 	function detail($noanggota = null){
 
 		$data['anggota'] = DB::table('anggota')->where('id',$noanggota)->get()->first();
+		$data['anggotaid'] = $noanggota ?? 0;
 
 		$date_jasa = date('Y')-1;
 		$date_jasa_dua = date('Y')-2;
