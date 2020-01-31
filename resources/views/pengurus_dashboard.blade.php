@@ -159,6 +159,7 @@
 														<th>Angsuran ke</th>
 														<th>Sisa Angsuran</th>
 														<th>Kantor</th>
+														<th>Angsuran</th>
 														
 													</tr>
 												</thead>
@@ -182,6 +183,7 @@
 															
 														</td>
 														<td>{{ $d->namakantor }}</td>
+														<td><a href="{{ url('pengurus/dashboard/detail-pinjaman/'.$d->id.'?anggotaid='.$anggotaid ) }} " class="btn btn-sm btn-primary">Detail</a></td>
 														
 													</tr>
 													@endforeach 

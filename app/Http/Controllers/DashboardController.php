@@ -114,7 +114,6 @@ class DashboardController extends Controller
 		$simpananasli = [];
 		$tahun_shu = 2019;
 		$sumber = DB::select(DB::raw("SELECT * from apps_kolektif_data where tahun = $tahun_shu "));
-
 		// angka static dari jasa 25 % seharusnya 
 		// N3
 		$angka_hasil_pertahun = $sumber[0]->shu_toko_sp;
@@ -189,6 +188,7 @@ class DashboardController extends Controller
 
 
 
+		$data['anggotaid'] = $request->anggotaid;
 
 		$data['penjualan'] = DB::table('penjualan')->where('pelangganid',$request->anggotaid)
 		->orderBy('tanggal','desc')
@@ -233,7 +233,7 @@ class DashboardController extends Controller
 
 		// dd($angka_hasil_pertahun);
 		// presentase laba toko 25% dari total laba toko, sp, cad
-		$presentase_laba_toko = ( $angka_hasil_pertahun * 30 / 100);
+		$presentase_laba_toko = ( $angka_hasil_pertahun * 25 / 100);
 		// ($angka_hasil_pertahun * (30 / 100) ); // = N4
 
 		// dd($presentase_laba_toko);
@@ -366,5 +366,30 @@ class DashboardController extends Controller
 		// dd($data);
 		return view('pengurus_dashboard',with($data));
 		// }
+	}
+
+	// pinjaman detail
+	function detailPinjaman($pinjamanid = null, Request $request)
+	{
+		$pinjaman = $pinjamanid ?? 0;
+		$data['pinjaman'] = DB::select(DB::raw("SELECT * from pinjtransaksi where pinjamanid = '$pinjaman'"));
+		$data['head_pinjaman'] = DB::select(DB::raw("SELECT d.nama as namakantor, b.nama as namapinjaman, c.nama as namajaminan,   a.* from pinjaman a 
+			inner join pinjjenis b on a.jenisid = b.id
+			left join jaminan c on a.jaminanid = c.id
+			left join kantor d on a.kantorid = d.id
+			where anggotaid = '".$request->anggotaid."' and a.id = '$pinjamanid' "));
+
+		// $data['head_pinjaman'][0]->
+		$data['anggotaid'] = $request->anggotaid;
+		$data['bunga_pinjaman_bulanan']  = ( ( $data['head_pinjaman'][0]->plafon * 1.25 ) / 100 );
+
+		$data['bagi_hasil_pertama'] = $data['bunga_pinjaman_bulanan'] * 24;
+
+		$data['bunga_pinjaman_bulanan_summary']  = ( ( $data['head_pinjaman'][0]->plafon * 1.25 ) / 100 ) * $data['head_pinjaman'][0]->angsuranke;
+		$data['bunga_pinjaman']  = ( ( $data['head_pinjaman'][0]->plafon * 1.25 ) / 100 ) *  $data['head_pinjaman'][0]->jangkawaktu;
+
+
+		// dd($data['pinjaman']);
+		return view('pinjaman_dashboard',with($data));
 	}
 }
