@@ -42,6 +42,10 @@ class CashTokoController extends Controller
 		
 		// dd($top_barang_laku);
 
+		foreach ($top_barang_laku as $tbl) {
+			$data_barang[] = Helper::getNamaBarang($tbl->barangid);
+		}
+
 		$data = array(
 			'title' => 'Dashboard',
 			'jasa_pinjam' => $sumber[0]->total_jasa_pinjaman,
@@ -49,7 +53,8 @@ class CashTokoController extends Controller
 			'laba_toko' => $laba_toko[0]->labatoko,
 			'laba_toko_all'	=> $laba_toko_all[0]->labatoko,
 			'penjualan_toko' => $penjualan_toko,
-			'top_barang_laku' => $top_barang_laku
+			'top_barang_laku' => $top_barang_laku,
+			'data_barang' => $data_barang
 		);
  
 		return view('dashboard_mobile/dash_cashflow_toko')->with($data);

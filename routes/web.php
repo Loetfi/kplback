@@ -199,6 +199,8 @@ Route::get('dashboard_mobile/cashflow_simpin/detail/{id_jenis}','CashSPControlle
 Route::get('dashboard_mobile/cashflow_simpin/status/{id_jenis}/{lunas}','CashSPController@detailByStatus');
 // cashflow simpan
 Route::get('dashboard_mobile/cashflow_simpanan','CashSimpanController@index');
+// cashflow toko 
+Route::get('dashboard_mobile/piutang_toko','PiutangTokoController@index');
 
 
 

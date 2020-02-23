@@ -19,7 +19,7 @@ var myBarChart = new Chart(ctx, {
   type: 'bar',
   data: {
 
-    labels: [ @foreach($top_barang_laku as $tbl) "{!! \App\Http\Helpers\Helper::getNamaBarang($tbl->barangid) !!}", @endforeach  ],
+    labels:  @json($data_barang) ,
     datasets: [{
       label: "Terjual",
       backgroundColor: "#4e73df",

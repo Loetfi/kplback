@@ -55,6 +55,13 @@
                 <span>Cashflow Pinjaman</span>
             </a> 
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ url('dashboard_mobile/piutang_toko') }} ">
+                <i class="fas fa-fw fa-money-check-alt"></i>
+                <span>Piutang Toko</span>
+            </a> 
+        </li>
  
         
         
