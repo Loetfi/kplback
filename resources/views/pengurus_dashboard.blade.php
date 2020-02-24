@@ -27,96 +27,136 @@
 					<div class="alert alert-blank">
 						<strong><a href="{{ url('dashboard_mobile') }} ">Masuk Dashboard Pengurus > </a></strong>
 					</div>
-					<div class="alert alert-primary">
-						<strong>SHU Modal: Rp. {{ $final_hasil_presentase_shu_modal }}</strong>
-						<p>Total modal keseluruhan dari simpanan wajib dan pokok</p>
+
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Berjalan</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link disabled" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">SHU 2019</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">SHU 2018</a>
+						</li>
+						
+					</ul>
+					<div class="tab-content" id="myTabContent">
+						<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+							<div class="alert alert-primary">
+								<strong>SHU Modal: Rp. {{ $final_hasil_presentase_shu_modal }}</strong>
+								<p>Total modal keseluruhan dari simpanan wajib dan pokok</p>
+							</div>
+							<div class="alert alert-info">
+								<strong>SHU Toko: Rp. {{ $final_laba_toko_per_orang }} </strong>
+							</div>
+							<div class="alert alert-warning">
+								<strong> SHU Simpan Pinjam : Rp. {{ number_format($final_shu_orang) }} </strong>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+						...</div>
+						<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+							<div class="alert alert-primary">
+								<strong>SHU Modal: Rp. {{ $shu_2018->shumodal }}</strong>
+								<p>2018</p>
+							</div>
+							<div class="alert alert-info">
+								<strong>SHU Toko: Rp. {{ $shu_2018->shutoko }} </strong>
+								<p>2018</p>
+							</div>
+							<div class="alert alert-warning">
+								<strong> SHU Simpan Pinjam : Rp. {{ $shu_2018->shusp }} </strong>
+								<p>2018</p>
+							</div>
+							<div class="alert alert-danger">
+								<strong>Total SHU: Rp. {{ $shu_2018->totalshu }} </strong>
+								<p>2018</p>
+							</div>
+						</div>
 					</div>
-					<div class="alert alert-info">
-						<strong>SHU Toko: Rp. {{ $final_laba_toko_per_orang }} </strong>
-					</div>
-					<div class="alert alert-warning">
-						<strong> SHU Simpan Pinjam : Rp. {{ number_format($final_shu_orang) }} </strong>
-					</div>
+
+
+					
 					<div id="accordianId" role="tablist" aria-multiselectable="true">
 						<div class="card">
 							<div class="card-header" role="tab" id="section1HeaderId">
 								<h5 class="mb-0">
 									<a data-toggle="collapse" data-parent="#accordianId" href="#section1ContentId" aria-expanded="true" aria-controls="section1ContentId">
-							  Transaksi Pembelian
-							</a>
+										Transaksi Pembelian
+									</a>
 								</h5>
 							</div>
 							<div id="section1ContentId" class="collapse in" role="tabpanel" aria-labelledby="section1HeaderId">
 								<div class="card-body">
-										<table class="table table-responsive">
-												<thead>
-													<tr>
-														<th>Tanggal</th>
-														<th>Total Belanja</th>
-														<th>Tempo</th>
-														<th>Status</th>
-													</tr>
-												</thead>
-												<tbody>
-													@foreach ($penjualan as $d)
-													<tr>
+									<table class="table table-responsive">
+										<thead>
+											<tr>
+												<th>Tanggal</th>
+												<th>Total Belanja</th>
+												<th>Tempo</th>
+												<th>Status</th>
+											</tr>
+										</thead>
+										<tbody>
+											@foreach ($penjualan as $d)
+											<tr>
 
-														<td scope="row">{{ date('d F Y',strtotime($d->tanggal)) }}</td>
-														<td>
-															@if($d->tempo > 0)
+												<td scope="row">{{ date('d F Y',strtotime($d->tanggal)) }}</td>
+												<td>
+													@if($d->tempo > 0)
 
-															<!-- {{ $d->id }} -->
-															Rp. {!! number_format(\App\Http\Helpers\Helper::getDetailPenjualan($d->id)) !!}
-															
-															@else 
-															Rp. {{ number_format($d->bayar - $d->kembalian) }}
-															@endif
+													<!-- {{ $d->id }} -->
+													Rp. {!! number_format(\App\Http\Helpers\Helper::getDetailPenjualan($d->id)) !!}
 
-															</td>
-														<td>
-															
-															{{ $d->tempo}} Hari
-														</td>
-														<td>
+													@else 
+													Rp. {{ number_format($d->bayar - $d->kembalian) }}
+													@endif
 
-															<!-- jika transaksi dilakukan di atas tanggal 20 -->
-															@if ( date('d', strtotime($d->tanggal)) > 20  and $d->tempo > 0 )
+												</td>
+												<td>
 
-															@if( date("Y-m-d",strtotime("+2 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) >= date("Y-m-01") and $d->tempo > 0 )
+													{{ $d->tempo}} Hari
+												</td>
+												<td>
 
-															{{ 'dipotong pada : ' . date("d F Y",strtotime("+2 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) }}
+													<!-- jika transaksi dilakukan di atas tanggal 20 -->
+													@if ( date('d', strtotime($d->tanggal)) > 20  and $d->tempo > 0 )
 
-															@endif
+													@if( date("Y-m-d",strtotime("+2 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) >= date("Y-m-01") and $d->tempo > 0 )
 
-															<!-- jika transaksi dilakukan dibawah tanggal 20 -->
-															@elseif ( date('d', strtotime($d->tanggal)) <= 20  and $d->tempo > 0 )
+													{{ 'dipotong pada : ' . date("d F Y",strtotime("+2 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) }}
 
+													@endif
 
-															@if( date("Y-m-d",strtotime("+1 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) >= date("Y-m-01") and $d->tempo > 0 )
-
-															@php $diff = date("Y-m-d",strtotime("+1 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))); @endphp
-															
-															@if ( date('Y-m-d') > $diff  )
-																<a href="#" class="btn btn-sm btn-disabled btn-success">Lunas</a>
-															@else 
-																{{ 'dipotong pada : ' . date("d F Y",strtotime("+1 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) }}
-															@endif
-															
-
-															@else 
-															<a href="#" class="btn btn-sm btn-disabled btn-success">Lunas</a>
-															@endif
+													<!-- jika transaksi dilakukan dibawah tanggal 20 -->
+													@elseif ( date('d', strtotime($d->tanggal)) <= 20  and $d->tempo > 0 )
 
 
-															
+													@if( date("Y-m-d",strtotime("+1 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) >= date("Y-m-01") and $d->tempo > 0 )
+
+													@php $diff = date("Y-m-d",strtotime("+1 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))); @endphp
+
+													@if ( date('Y-m-d') > $diff  )
+													<a href="#" class="btn btn-sm btn-disabled btn-success">Lunas</a>
+													@else 
+													{{ 'dipotong pada : ' . date("d F Y",strtotime("+1 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) }}
+													@endif
 
 
-															@endif
+													@else 
+													<a href="#" class="btn btn-sm btn-disabled btn-success">Lunas</a>
+													@endif
 
-															@if($d->tempo <= 0)
-															Cash
-															@endif 
-															
+
+
+
+
+													@endif
+
+													@if($d->tempo <= 0)
+													Cash
+													@endif 
+
 															<!-- @if( date("Y-m-d",strtotime("+2 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) >= date("Y-m-01") and $d->tempo > 0 )
 
 															{{ 'dipotong pada : ' . date("d F Y",strtotime("+2 month",strtotime(date("Y-m-01",strtotime($d->tanggal) )))) }}
@@ -127,26 +167,26 @@
 
 															@endif -->
 
-														
+
 														</td>
 													</tr>
 													@endforeach 
 												</tbody>
 											</table>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-						<div class="card">
-							<div class="card-header" role="tab" id="section2HeaderId">
-								<h5 class="mb-0">
-									<a data-toggle="collapse" data-parent="#accordianId" href="#section2ContentId" aria-expanded="true" aria-controls="section2ContentId">
-											Transaksi Pinjaman
-							</a>
-								</h5>
-							</div>
-							<div id="section2ContentId" class="collapse in" role="tabpanel" aria-labelledby="section2HeaderId">
-								{{-- <div class="card-body"> --}}
-										<table class="table table-responsive">
+								<div class="card">
+									<div class="card-header" role="tab" id="section2HeaderId">
+										<h5 class="mb-0">
+											<a data-toggle="collapse" data-parent="#accordianId" href="#section2ContentId" aria-expanded="true" aria-controls="section2ContentId">
+												Transaksi Pinjaman
+											</a>
+										</h5>
+									</div>
+									<div id="section2ContentId" class="collapse in" role="tabpanel" aria-labelledby="section2HeaderId">
+										{{-- <div class="card-body"> --}}
+											<table class="table table-responsive">
 												<thead>
 													<tr>
 														<th>Nama Pinjaman</th>
@@ -189,23 +229,23 @@
 													@endforeach 
 												</tbody>
 											</table>
-								{{-- </div> --}}
-							</div>
-						</div>
+										{{-- </div> --}}
+									</div>
+								</div>
 
-						<!-- simpanan -->
+								<!-- simpanan -->
 
-						<div class="card">
-							<div class="card-header" role="tab" id="section3HeaderId">
-								<h5 class="mb-0">
-									<a data-toggle="collapse" data-parent="#accordianId" href="#section3ContentId" aria-expanded="true" aria-controls="section2ContentId">
-											Transaksi Simpanan
-							</a>
-								</h5>
-							</div>
-							<div id="section3ContentId" class="collapse in" role="tabpanel" aria-labelledby="section3HeaderId">
-								{{-- <div class="card-body"> --}}
-										<table class="table table-responsive">
+								<div class="card">
+									<div class="card-header" role="tab" id="section3HeaderId">
+										<h5 class="mb-0">
+											<a data-toggle="collapse" data-parent="#accordianId" href="#section3ContentId" aria-expanded="true" aria-controls="section2ContentId">
+												Transaksi Simpanan
+											</a>
+										</h5>
+									</div>
+									<div id="section3ContentId" class="collapse in" role="tabpanel" aria-labelledby="section3HeaderId">
+										{{-- <div class="card-body"> --}}
+											<table class="table table-responsive">
 												<thead>
 													<tr>
 														<th>Nama Simpanan</th>
@@ -214,7 +254,7 @@
 												</thead>
 												<tbody> 
 													@if(empty($simpanan))
-														Tidak ada simpanan
+													Tidak ada simpanan
 													@else
 													@foreach ($simpanan as $d)
 													<tr>
@@ -225,103 +265,103 @@
 													@endif
 												</tbody>
 											</table>
-								{{-- </div> --}}
+										{{-- </div> --}}
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				{{-- <!-- Area Chart -->
+					<div class="col-xl-8 col-lg-7">
+						<div class="card shadow mb-4">
+							<!-- Card Header - Dropdown -->
+							<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 class="m-0 font-weight-bold text-primary">Cashflow</h6>
+							</div>
+							<!-- Card Body -->
+							<div class="card-body">
+								<div class="chart-area">
+									<canvas id="myAreaChart"></canvas>
+								</div>
 							</div>
 						</div>
 					</div>
-					
-				</div>
-			</div>
-		</div>
-		
-		{{-- <!-- Area Chart -->
-		<div class="col-xl-8 col-lg-7">
-			<div class="card shadow mb-4">
-				<!-- Card Header - Dropdown -->
-				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-					<h6 class="m-0 font-weight-bold text-primary">Cashflow</h6>
-				</div>
-				<!-- Card Body -->
-				<div class="card-body">
-					<div class="chart-area">
-						<canvas id="myAreaChart"></canvas>
-					</div>
-				</div>
-			</div>
-		</div>
-		 --}}
-		<!-- Pie Chart -->
-		{{-- <div class="col-xl-4 col-lg-5">
-			<div class="card shadow mb-4">
-				<!-- Card Header - Dropdown -->
-				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-					<h6 class="m-0 font-weight-bold text-primary">Sumber Pendapatan</h6>
-					<div class="dropdown no-arrow">
-						<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-						</a>
-						<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-							<div class="dropdown-header">Dropdown Header:</div>
-							<a class="dropdown-item" href="#">Action</a>
-							<a class="dropdown-item" href="#">Another action</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Something else here</a>
+					--}}
+					<!-- Pie Chart -->
+					{{-- <div class="col-xl-4 col-lg-5">
+						<div class="card shadow mb-4">
+							<!-- Card Header - Dropdown -->
+							<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 class="m-0 font-weight-bold text-primary">Sumber Pendapatan</h6>
+								<div class="dropdown no-arrow">
+									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+										<div class="dropdown-header">Dropdown Header:</div>
+										<a class="dropdown-item" href="#">Action</a>
+										<a class="dropdown-item" href="#">Another action</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="#">Something else here</a>
+									</div>
+								</div>
+							</div>
+							<!-- Card Body -->
+							<div class="card-body">
+								<div class="chart-pie pt-4 pb-2">
+									<canvas id="myPieChart"></canvas>
+								</div>
+								<div class="mt-4 text-center small">
+									<span class="mr-2">
+										<i class="fas fa-circle text-primary"></i> Direct
+									</span>
+									<span class="mr-2">
+										<i class="fas fa-circle text-success"></i> Social
+									</span>
+									<span class="mr-2">
+										<i class="fas fa-circle text-info"></i> Referral
+									</span>
+								</div>
+							</div>
+
+
 						</div>
-					</div>
+					</div> --}}
 				</div>
-				<!-- Card Body -->
-				<div class="card-body">
-					<div class="chart-pie pt-4 pb-2">
-						<canvas id="myPieChart"></canvas>
-					</div>
-					<div class="mt-4 text-center small">
-						<span class="mr-2">
-							<i class="fas fa-circle text-primary"></i> Direct
-						</span>
-						<span class="mr-2">
-							<i class="fas fa-circle text-success"></i> Social
-						</span>
-						<span class="mr-2">
-							<i class="fas fa-circle text-info"></i> Referral
-						</span>
-					</div>
-				</div>
-				
-				
+
+
+
+
+
 			</div>
-		</div> --}}
-	</div>
-	
-	
-	
-	
-	
-</div>
 
 
-{{-- <div class="container-fluid">
-	<!-- Content Row -->
-	<div class="row">
-		
-		<div class="col-lg-6 mb-4">
-			
-			<!-- Approach -->
-			<div class="card shadow mb-4">
-				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
+			{{-- <div class="container-fluid">
+				<!-- Content Row -->
+				<div class="row">
+
+					<div class="col-lg-6 mb-4">
+
+						<!-- Approach -->
+						<div class="card shadow mb-4">
+							<div class="card-header py-3">
+								<h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
+							</div>
+							<div class="card-body">
+								<p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce CSS bloat and poor page performance. Custom CSS classes are used to create custom components and custom utility classes.</p>
+								<p class="mb-0">Before working with this theme, you should become familiar with the Bootstrap framework, especially the utility classes.</p>
+							</div>
+						</div>
+
+					</div>
 				</div>
-				<div class="card-body">
-					<p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce CSS bloat and poor page performance. Custom CSS classes are used to create custom components and custom utility classes.</p>
-					<p class="mb-0">Before working with this theme, you should become familiar with the Bootstrap framework, especially the utility classes.</p>
-				</div>
-			</div>
-			
-		</div>
-	</div>
-</div> --}}
-<!-- /.container-fluid -->
+			</div> --}}
+			<!-- /.container-fluid -->
 
 
 
 
-@endsection
+			@endsection

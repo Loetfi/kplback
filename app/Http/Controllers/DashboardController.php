@@ -363,7 +363,13 @@ class DashboardController extends Controller
 		// 	return redirect('dashboard');
 		// } else {
 
-		// dd($data);
+		// get SHU 2018 
+		$shu_2018 = DB::select(DB::raw("SELECT  b.* from anggota a 
+			inner join apps_shu_summary_temporary b on a.noanggota=b.noanggota
+			where id = '".$request->anggotaid."' and shu_year = '2018' " ));
+
+		$data['shu_2018'] = $shu_2018[0] ?? array();
+
 		return view('pengurus_dashboard',with($data));
 		// }
 	}
