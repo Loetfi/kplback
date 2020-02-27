@@ -82,10 +82,10 @@
 						@php $jumlah_bagi+=$d['bagi_hasil'] @endphp
 						@endforeach
 						<tr>
-							<td><b>Total</b></td>
+							<td colspan="4"><b>Total</b></td>
+							<!-- <td></td>
 							<td></td>
-							<td></td>
-							<td></td>
+							<td></td> -->
 							<td><b>{{ number_format($jumlah_debit) }}</b></td>
 							<td><b>{{ number_format($jumlah_bagi) }}</b></td>
 							<td></td>
