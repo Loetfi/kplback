@@ -126,7 +126,7 @@ class AnggotaController extends Controller
 
 		// dd($angka_hasil_pertahun);
 		// presentase laba toko 25% dari total laba toko, sp, cad
-		$presentase_laba_toko = ( $angka_hasil_pertahun * 30 / 100);
+		$presentase_laba_toko = ( $angka_hasil_pertahun * 25 / 100);
 		// ($angka_hasil_pertahun * (30 / 100) ); // = N4
 
 		// dd($presentase_laba_toko);
@@ -196,6 +196,13 @@ class AnggotaController extends Controller
 		if($data['anggota']->pengurus == 1){
 			// echo " Pengurus ";
 		}
+
+		// get SHU 2018 
+		$shu_2018 = DB::select(DB::raw("SELECT  b.* from anggota a 
+			inner join apps_shu_summary_temporary b on a.noanggota=b.noanggota
+			where id = '".$data['anggotaid']."' and shu_year = '2018' " ));
+
+		$data['shu_2018'] = $shu_2018[0] ?? array();
  
 		return view('pengurus_dashboard',with($data));
 	}
