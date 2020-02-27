@@ -224,7 +224,7 @@
 														<td>{{ $d->angsuran }}</td>
 														<td>Rp. {{ number_format($d->nangsuran) }} / {{ $d->satuan }}</td>
 														<td>Rp. {{ number_format($d->plafon) }}</td>
-														<td>{{ $d->bunga}}%</td>
+														<td>{{ (int) $d->bunga }} %</td>
 														<td>{{ $d->jangkawaktu }}</td>
 														<td>{{ $d->angsuranke }}</td>
 														<td>

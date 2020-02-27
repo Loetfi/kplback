@@ -16,13 +16,18 @@
 <div class="container-fluid">
 	<br><br>
 	<div class="row">
-		
 		<div class="col-xl-8 col-lg-7">
 			<div class="card shadow mb-4">
 				<!-- Card Body -->
+				<a class="btn btn-sm btn-primary" href="{{ url('pengurus/dashboard?anggotaid='.$anggotaid) }} ">Kembali</a>
 				<div class="card-body">
 
-					<a class="btn btn-sm btn-primary" href="{{ url('pengurus/dashboard?anggotaid='.$anggotaid) }} ">Kembali</a>
+					@if(empty($head_pinjaman))
+					<div class="alert alert-warning">
+						Pinjaman tidak ditemukan
+					</div>
+					@php die() @endphp
+					@endif
 
 					<table class="table table-bordered">
 						<tr>
@@ -58,41 +63,46 @@
 							<th>ID</th>
 						</tr>
 						@php
-						$first = $pinjaman[1]->debet;
 						$no = 1;
 						@endphp
+						@php $jumlah_debit=0; $jumlah_bagi=0;  @endphp
 						@foreach ($pinjaman as $d)
 						<tr>
 							<td>{{ $no++ }} </td>
-							<td>{{ date('d F Y',strtotime($d->tanggal)) }} </td>
-							<td>{{ $d->nobukti }} </td>
-							<td>{{ $d->keterangan }} </td>
-							<td>{{ $d->debet }} </td>
-							<td>
-								@if($first == $d->debet )
-								{{ $bagi_hasil_pertama }}
-
-								@else
-
-								{{ $bunga_pinjaman_bulanan }}
-								@endif
-							</td>
-							<td>{{ $d->kredit }} </td>
-							<td>{{ $d->tipe }} </td>
-							<td>{{ $d->user }} </td>
+							<td>{{ ($d['tanggal'] == '') ? '': date('d F Y',strtotime($d['tanggal'])) }} </td>
+							<td>{{ $d['nobukti'] }} </td>
+							<td>{{ $d['keterangan'] }} </td>
+							<td>{{ number_format($d['debet']) }} </td>
+							<td>{{ number_format($d['bagi_hasil']) }} </td>
+							<td>{{ $d['kredit'] }} </td>
+							<td>{{ $d['tipe'] }} </td>
+							<td>{{ $d['user'] }} </td>
 						</tr>
+						@php $jumlah_debit+=$d['debet'] @endphp
+						@php $jumlah_bagi+=$d['bagi_hasil'] @endphp
 						@endforeach
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>{{ number_format($jumlah_debit) }}</td>
+							<td>{{ number_format($jumlah_bagi) }}</td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
 
 					</table>
 				</div>
 			</div>
 		</div> 
 	</div>
-	
-	
-	
-	
-	
+
+
+
+
+
 </div>
 
 <!-- /.container-fluid -->
