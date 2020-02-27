@@ -14,9 +14,10 @@ use DB;
 class DashboardController extends Controller
 { 
 	function web(){
-		// get anggota P
-
 		$date = date('Y');
+		$tanggal = date('d')-7;
+		$tanggal = date('Y-m-'.$tanggal);
+
 
 		$anggota_p = DB::select(DB::raw("SELECT count(id) as total from anggota where noanggota like '%P.%'"));
 
@@ -42,6 +43,8 @@ class DashboardController extends Controller
 			where  year(tanggal) = '$date'"));
 		// dd($sumber);
 
+		$penjualan_toko = DB::select(DB::raw("SELECT tanggal, sum(bayar-kembalian) as belanja from penjualan where tanggal >= '$tanggal' group by tanggal"));
+
 		$data = array(
 			'title' => 'Dashboard',
 			'anggota_p' => $anggota_p[0]->total,
@@ -51,7 +54,8 @@ class DashboardController extends Controller
 			'jasa_pinjam' => $sumber[0]->total_jasa_pinjaman,
 			'jasa_sp' => $sumber[0]->total_simpanan_pokok,
 			'laba_toko' => $laba_toko[0]->labatoko,
-			'laba_toko_all'	=> $laba_toko_all[0]->labatoko
+			'laba_toko_all'	=> $laba_toko_all[0]->labatoko,
+			'penjualan_toko' => $penjualan_toko
 		);
 
 		return view('dashboard')->with($data);
