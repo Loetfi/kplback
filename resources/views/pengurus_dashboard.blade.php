@@ -57,19 +57,19 @@
 						...</div>
 						<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 							<div class="alert alert-primary">
-								<strong>SHU Modal: Rp. {{ $shu_2018->shumodal }}</strong>
+								<strong>SHU Modal: Rp. {{ $shu_2018->shumodal ?? '-' }}</strong>
 								<p>2018</p>
 							</div>
 							<div class="alert alert-info">
-								<strong>SHU Toko: Rp. {{ $shu_2018->shutoko }} </strong>
+								<strong>SHU Toko: Rp. {{ $shu_2018->shutoko ?? '-' }} </strong>
 								<p>2018</p>
 							</div>
 							<div class="alert alert-warning">
-								<strong> SHU Simpan Pinjam : Rp. {{ $shu_2018->shusp }} </strong>
+								<strong> SHU Simpan Pinjam : Rp. {{ $shu_2018->shusp ?? '-' }} </strong>
 								<p>2018</p>
 							</div>
 							<div class="alert alert-danger">
-								<strong>Total SHU: Rp. {{ $shu_2018->totalshu }} </strong>
+								<strong>Total SHU: Rp. {{ $shu_2018->totalshu ?? '-' }} </strong>
 								<p>2018</p>
 							</div>
 						</div>
