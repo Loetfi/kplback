@@ -19,14 +19,27 @@
 		
 		<div class="col-xl-8 col-lg-7">
 			<div class="card shadow mb-4">
+					@if(isset($button_back))
+					 <button onclick="goBack()" class="btn btn-sm btn-primary">Kembali</button>
+
+					<script>
+					function goBack() {
+					  window.history.back();
+					}
+					</script> 
+
+					@endif
 				<!-- Card Body -->
 				<div class="card-body">
 					<div class="alert alert-default" role="alert">
 						<h4 class="alert-heading">Hai, {{ $anggota->nama }}</h4>
 					</div>
+
+					@if($pengurus)
 					<div class="alert alert-blank">
 						<strong><a href="{{ url('dashboard_mobile') }} ">Masuk Dashboard Pengurus > </a></strong>
 					</div>
+					@endif
 
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
 						<li class="nav-item">

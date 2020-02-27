@@ -192,10 +192,25 @@ class AnggotaController extends Controller
 
 		$data['final_hasil_presentase_shu_modal'] = number_format(ceil(($hasil_presentase_shu_modal * $total_modal_usaha ) / 100)); 
 
-		// jika pengurus lebih banyak lagi informasinya
-		if($data['anggota']->pengurus == 1){
-			// echo " Pengurus ";
+		$pengurus_pengawas = array(
+			'20190101-151754195',
+			'20190101-151753154',
+			'20190101-151757276',
+			'20190101-151757272',
+			'20190101-151755229',
+			'20190101-151752141',
+			'20190101-151752136'
+		);
+
+		$anggotaid = $data['anggotaid'] ?? 0;
+		if (in_array($anggotaid, $pengurus_pengawas)) {
+			$data['pengurus'] = true;
+			$data['button_back'] = true;
+		} else {
+			$data['pengurus'] = false;
+			$data['button_back'] = false;
 		}
+
 
 		// get SHU 2018 
 		$shu_2018 = DB::select(DB::raw("SELECT  b.* from anggota a 

@@ -250,8 +250,6 @@ class DashboardController extends Controller
 
 		$hasil_presentase_laba_toko = round($hasil,2);
 
-		// dd($hasil_presentase_laba_toko);
-
 
 
 		// laba toko dari anggota ini 
@@ -348,20 +346,23 @@ class DashboardController extends Controller
 
 
 		// jika pengurus lebih banyak lagi informasinya
-		if($data['anggota']->pengurus == 1){
-			// echo " Pengurus ";
+
+		$pengurus_pengawas = array(
+			'20190101-151754195',
+			'20190101-151753154',
+			'20190101-151757276',
+			'20190101-151757272',
+			'20190101-151755229',
+			'20190101-151752141',
+			'20190101-151752136'
+		);
+
+		$anggotaid = $request->anggotaid ?? 0;
+		if (in_array($anggotaid, $pengurus_pengawas)) {
+			$data['pengurus'] = true;
+		} else {
+			$data['pengurus'] = false;
 		}
-
-
-
-
-
-		// $results = DB::select( DB::raw("SELECT * FROM some_table WHERE some_col = '$someVariable'") );
-		// $value = session('user') ? session('user') : [];
-
-		// if (sizeof($value)>0) {
-		// 	return redirect('dashboard');
-		// } else {
 
 		// get SHU 2018 
 		$shu_2018 = DB::select(DB::raw("SELECT  b.* from anggota a 
