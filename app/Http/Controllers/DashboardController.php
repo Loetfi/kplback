@@ -408,12 +408,15 @@ class DashboardController extends Controller
 		$data['bunga_pinjaman_bulanan_summary']  = ( ( $data['head_pinjaman'][0]->plafon * 1.25 ) / 100 ) * $data['head_pinjaman'][0]->angsuranke;
 		$data['bunga_pinjaman']  = ( ( $data['head_pinjaman'][0]->plafon * 1.25 ) / 100 ) *  $data['head_pinjaman'][0]->jangkawaktu;
 
-		// dd($data['head_pinjaman']);
 
 		$first = $pinjaman[1]->debet ?? 0;
 		$i = 0;
 		$total_debet_kedua=0;
 		$total_bagihasil_kedua=0;
+
+		$resultss = [];
+		$result = [];
+
 		foreach ($pinjaman as $d) {
 			$i++;
 			if($i == 1) {
@@ -438,7 +441,7 @@ class DashboardController extends Controller
 				$results_one[] = $res;
 				continue;
 			}
-			
+
 			if($i == 2) {
 				$res['tanggal'] = $d->tanggal;
 				$res['nobukti'] = $d->nobukti;
@@ -462,57 +465,64 @@ class DashboardController extends Controller
 				continue;
 			}
 
-			
+
 		}
 
-		// dd($results_one);
 
-		$count=0;
-		$total_debet=0;
-		$total_bagihasil=0;
-		$result = [];
-		foreach (array_slice($pinjaman, 2) as $d) {
+		if (count((array) $pinjaman) > 1) {
 
-			$res['tanggal'] = $d->tanggal;
-			$res['nobukti'] = $d->nobukti;
-			$res['keterangan'] = $d->keterangan;
-			$res['debet'] = $d->debet;
+			
 
-			if ($first == $d->debet) {
-				$res['bagi_hasil'] = $data['bagi_hasil_pertama'];
-			} else {
-				$res['bagi_hasil'] = $data['bunga_pinjaman_bulanan'];	
+			$count=0;
+			$total_debet=0;
+			$total_bagihasil=0;
+			$result = [];
+			foreach (array_slice($pinjaman, 2) as $d) {
+
+				$res['tanggal'] = $d->tanggal;
+				$res['nobukti'] = $d->nobukti;
+				$res['keterangan'] = $d->keterangan;
+				$res['debet'] = $d->debet;
+
+				if ($first == $d->debet) {
+					$res['bagi_hasil'] = $data['bagi_hasil_pertama'];
+				} else {
+					$res['bagi_hasil'] = $data['bunga_pinjaman_bulanan'];	
+				}
+
+				$res['kredit'] = $d->kredit;
+				$res['tipe'] = $d->tipe;
+				$res['user'] = $d->user;
+
+				$total_debet += $d->debet;
+				$total_bagihasil += $res['bagi_hasil'];
+				$res['user'] = $d->user;
+
+				$result[] = $res;
 			}
 
-			$res['kredit'] = $d->kredit;
-			$res['tipe'] = $d->tipe;
-			$res['user'] = $d->user;
+			$total_debet;
+			$total_bagihasil;
 
-			$total_debet += $d->debet;
-			$total_bagihasil += $res['bagi_hasil'];
-			$res['user'] = $d->user;
+			$angsuran = $data['head_pinjaman'][0]->nangsuran;
+			$total_berjalan = $total_debet + $total_bagihasil;
+			$angsuran_berjalan = $total_berjalan / $angsuran;
 
-			$result[] = $res;
+			$total_berjalan_kedua = $total_debet_kedua + $total_bagihasil_kedua;
+			$hasil_total_berjalan_kedua = ($total_berjalan_kedua / $angsuran) - 1;
+
+			$resultss = [];
+			for ($i=0; $i < $hasil_total_berjalan_kedua; $i++) { 
+				$res['keterangan'] = '';
+				$res['nobukti'] = '';
+				$res['tanggal'] = '';
+				$res['debet'] = $res['debet'] > 0 ? $res['debet'] : 0;
+				$resultss[] = $res;
+			}
+		} else {
+
 		}
 
-		$total_debet;
-		$total_bagihasil;
-
-		$angsuran = $data['head_pinjaman'][0]->nangsuran;
-		$total_berjalan = $total_debet + $total_bagihasil;
-		$angsuran_berjalan = $total_berjalan / $angsuran;
-
-		$total_berjalan_kedua = $total_debet_kedua + $total_bagihasil_kedua;
-		$hasil_total_berjalan_kedua = ($total_berjalan_kedua / $angsuran) - 1;
-		
-		$resultss = [];
-		for ($i=0; $i < $hasil_total_berjalan_kedua; $i++) { 
-			$res['keterangan'] = '';
-			$res['nobukti'] = '';
-			$res['tanggal'] = '';
-			$res['debet'] = $res['debet'] > 0 ? $res['debet'] : 0;
-			$resultss[] = $res;
-		}
 
 		// dd(array_merge($results_one , $resultss ,  $result));
 		$data['pinjaman'] = array_merge($results_one, $resultss ,  $result);

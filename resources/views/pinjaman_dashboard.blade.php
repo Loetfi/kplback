@@ -74,7 +74,7 @@
 							<td>{{ $d['keterangan'] }} </td>
 							<td>{{ number_format($d['debet']) }} </td>
 							<td>{{ number_format($d['bagi_hasil']) }} </td>
-							<td>{{ $d['kredit'] }} </td>
+							<td>{{ number_format($d['kredit']) }} </td>
 							<td>{{ $d['tipe'] }} </td>
 							<td>{{ $d['user'] }} </td>
 						</tr>
@@ -83,9 +83,6 @@
 						@endforeach
 						<tr>
 							<td colspan="4"><b>Total</b></td>
-							<!-- <td></td>
-							<td></td>
-							<td></td> -->
 							<td><b>{{ number_format($jumlah_debit) }}</b></td>
 							<td><b>{{ number_format($jumlah_bagi) }}</b></td>
 							<td></td>
