@@ -375,6 +375,13 @@ class DashboardController extends Controller
 
 		$data['shu_2018'] = $shu_2018[0] ?? array();
 
+
+		$shu_2019 = DB::select(DB::raw("SELECT  b.* from anggota a 
+			inner join apps_shu_summary_temporary b on a.noanggota=b.noanggota
+			where id = '".$request->anggotaid."' and shu_year = '2019' " ));
+
+		$data['shu_2019'] = $shu_2019[0] ?? array();
+
 		return view('pengurus_dashboard',with($data));
 		// }
 	}

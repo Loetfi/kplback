@@ -46,7 +46,7 @@
 							<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Berjalan</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link disabled" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">SHU 2019</a>
+							<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">SHU 2019</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">SHU 2018</a>
@@ -67,7 +67,24 @@
 							</div>
 						</div>
 						<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-						...</div>
+						<div class="alert alert-primary">
+								<strong>SHU Modal: Rp. {{ $shu_2019->shumodal ?? '-' }}</strong>
+								<p>2019</p>
+							</div>
+							<div class="alert alert-info">
+								<strong>SHU Toko: Rp. {{ $shu_2019->shutoko ?? '-' }} </strong>
+								<p>2019</p>
+							</div>
+							<div class="alert alert-warning">
+								<strong> SHU Simpan Pinjam : Rp. {{ $shu_2019->shusp ?? '-' }} </strong>
+								<p>2019</p>
+							</div>
+							<div class="alert alert-danger">
+								<strong>Total SHU: Rp. {{ $shu_2019->totalshu ?? '-' }} </strong>
+								<p>2019</p>
+							</div>
+
+						</div>
 						<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 							<div class="alert alert-primary">
 								<strong>SHU Modal: Rp. {{ $shu_2018->shumodal ?? '-' }}</strong>
