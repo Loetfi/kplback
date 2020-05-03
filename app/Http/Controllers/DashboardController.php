@@ -15,8 +15,18 @@ class DashboardController extends Controller
 { 
 	function web(){
 		$date = date('Y');
-		$tanggal = date('d')-7;
-		$tanggal = date('Y-m-'.$tanggal);
+		$tanggal = date('Y-m-d',strtotime("-40 day",strtotime($date)));
+		// $tanggal = date('Y-m-'.$tanggal);
+
+		// $tanggal = date('d',)-7;
+
+
+		// $date = strtotime("+7 day", $date);
+		// echo date('M d, Y', $date);
+
+
+
+
 
 
 		$anggota_p = DB::select(DB::raw("SELECT count(id) as total from anggota where noanggota like '%P.%'"));

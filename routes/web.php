@@ -185,7 +185,7 @@ Route::group(['middleware' => ['checksessionlogin']], function () {
 
 Route::get('pengurus/dashboard/','DashboardController@index')->name('search');
 Route::get('pengurus/dashboard/detail-pinjaman/{pinjamanid}','DashboardController@detailPinjaman')->name('search');
-Route::get('dashboard_mobile','DashboardController@mobile');
+Route::get('dashboard_mobile','DashboardController@mobile')->name('dashboard_mobile');
 
 // anggota 
 Route::get('dashboard_mobile/anggota/list/{tipe}','AnggotaController@list');

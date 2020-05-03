@@ -65,7 +65,7 @@ class AnggotaController extends Controller
 		$date_jasa_dua = date('Y')-2;
 		$date = date('Y');
 		$simpananasli = [];
-		$tahun_shu = 2019;
+		$tahun_shu = 2020;
 		$sumber = DB::select(DB::raw("SELECT * from apps_kolektif_data where tahun = $tahun_shu "));
 
 		// angka static dari jasa 25 % seharusnya 
@@ -218,6 +218,13 @@ class AnggotaController extends Controller
 			where id = '".$data['anggotaid']."' and shu_year = '2018' " ));
 
 		$data['shu_2018'] = $shu_2018[0] ?? array();
+
+
+		$shu_2019 = DB::select(DB::raw("SELECT  b.* from anggota a 
+			inner join apps_shu_summary_temporary b on a.noanggota=b.noanggota
+			where id = '".$data['anggotaid']."' and shu_year = '2019' " ));
+
+		$data['shu_2019'] = $shu_2019[0] ?? array();
  
 		return view('pengurus_dashboard',with($data));
 	}

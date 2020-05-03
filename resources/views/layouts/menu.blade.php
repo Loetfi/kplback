@@ -86,7 +86,7 @@
             </a>
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#collapsePages">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item @if (Request::segment(1) === 'toko' ) navigation__active @endif" href="{{ route('toko') }}"><i class="fas fa-fw fa-chart-bar"></i> Dashbooard</a>
+                    <a class="collapse-item @if (Request::segment(1) === 'dashboard_mobile' ) navigation__active @endif" href="{{ route('dashboard_mobile') }}"><i class="fas fa-fw fa-chart-bar"></i> Dashbooard</a>
                 </div>
             </div>
         </li>
