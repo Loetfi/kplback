@@ -15,7 +15,7 @@ class AuthController extends Controller
 	{
 		$value = session('user') ? session('user') : [];
 
-		if (sizeof($value)>0) {
+		if (sizeof((array)$value)>0) {
 			return redirect('dashboard');
 		} else {
 			return view('auth/login');
