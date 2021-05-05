@@ -225,6 +225,13 @@ class AnggotaController extends Controller
 			where id = '".$data['anggotaid']."' and shu_year = '2019' " ));
 
 		$data['shu_2019'] = $shu_2019[0] ?? array();
+
+
+		$shu_2020 = DB::select(DB::raw("SELECT  b.* from anggota a 
+			inner join apps_shu_summary_temporary b on a.noanggota=b.noanggota
+			where id = '".$data['anggotaid']."' and shu_year = '2020' " ));
+
+		$data['shu_2020'] = $shu_2020[0] ?? array();
  
 		return view('pengurus_dashboard',with($data));
 	}

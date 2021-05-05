@@ -46,6 +46,9 @@
 							<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Berjalan</a>
 						</li>
 						<li class="nav-item">
+							<a class="nav-link" id="contact_2020-tab" data-toggle="tab" href="#contact_2020" role="tab" aria-controls="contact_2020" aria-selected="false">SHU 2020</a>
+						</li>
+						<li class="nav-item">
 							<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">SHU 2019</a>
 						</li>
 						<li class="nav-item">
@@ -66,6 +69,29 @@
 								<strong> SHU Simpan Pinjam : Rp. {{ number_format($final_shu_orang) }} </strong>
 							</div>
 						</div>
+
+						
+
+						<div class="tab-pane fade" id="contact_2020" role="tabpanel" aria-labelledby="contact_2020-tab">
+							<div class="alert alert-primary">
+									<strong>SHU Modal: Rp. {{ number_format($shu_2020->shumodal) ?? '-' }}</strong>
+									<p>2020</p>
+								</div>
+								<div class="alert alert-info">
+									<strong>SHU Toko: Rp. {{ number_format($shu_2020->shutoko) ?? '-' }} </strong>
+									<p>2020</p>
+								</div>
+								<div class="alert alert-warning">
+									<strong> SHU Simpan Pinjam : Rp. {{ number_format($shu_2020->shusp) ?? '-' }} </strong>
+									<p>2020</p>
+								</div>
+								<div class="alert alert-danger">
+									<strong>Total SHU: Rp. {{ number_format($shu_2020->totalshu) ?? '-' }} </strong>
+									<p>2020</p>
+								</div>
+	
+							</div>
+
 						<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 						<div class="alert alert-primary">
 								<strong>SHU Modal: Rp. {{ $shu_2019->shumodal ?? '-' }}</strong>
